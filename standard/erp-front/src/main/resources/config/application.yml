@@ -1,0 +1,10 @@
+---
+logging:
+  file: logs/erp.log
+
+---
+server:
+  port: 8082
+  tomcat:
+    access_log_enabled: true
+    basedir: target/tomcat
