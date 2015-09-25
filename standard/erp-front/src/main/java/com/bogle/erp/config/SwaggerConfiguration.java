@@ -2,7 +2,6 @@ package com.bogle.erp.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -33,26 +32,6 @@ public class SwaggerConfiguration implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         this.propertyResolver = new RelaxedPropertyResolver(environment, "swagger.");
-    }
-
-
-//    @Bean
-    public Docket swaggerSpringfoxDocket() {
-        log.debug("Starting Swagger");
-        StopWatch watch = new StopWatch();
-        watch.start();
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("api")
-                .apiInfo(apiInfo())
-                .genericModelSubstitutes(ResponseEntity.class)
-                .forCodeGeneration(true)
-                .genericModelSubstitutes(ResponseEntity.class)
-                .select()
-                .paths(regex(DEFAULT_INCLUDE_PATTERN))
-                .build();
-        watch.stop();
-        log.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
-        return docket;
     }
 
 
