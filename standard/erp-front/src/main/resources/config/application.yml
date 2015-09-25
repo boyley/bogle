@@ -1,10 +1,19 @@
 ---
 logging:
-  file: logs/erp.log
+    file: logs/erp.log
 
 ---
 server:
-  port: 8082
-  tomcat:
-    access_log_enabled: true
-    basedir: target/tomcat
+    port: 8082
+    tomcat:
+        access_log_enabled: true
+        basedir: target/tomcat
+---
+swagger:
+    title: erp API
+    description: erp applications and beyond!
+    version: 0.0.1
+    termsOfServiceUrl: http://github.io/boyley/erp
+    contact: 136397156@qq.com
+    license: Apache 2.0
+    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
