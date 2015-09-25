@@ -8,7 +8,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>standard</module>
-        <module>modules</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -25,7 +24,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
     </properties>
 
     <dependencies>
@@ -50,4 +49,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>

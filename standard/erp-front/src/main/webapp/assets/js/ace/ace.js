@@ -111,11 +111,11 @@ jQuery(function($) {
 				var path = document.location.pathname;
 
 				//for example in Ace HTML demo version we convert /ajax/index.html#page/gallery to > /ajax/content/gallery.html and load it
-				if(path.match(/(\/ajax\/)(index\.html)?/))
-					return path.replace(/(\/ajax\/)(index\.html)?/, '/ajax/content/'+hash.replace(/^page\//, '')+'.html') ;
-
+				//if(path.match(/(\/ajax\/)(index\.html)?/))
+				//	return path.replace(/(\/ajax\/)(index\.html)?/, hash.replace(/^page\//, '')+'.html') ;
+					return path + hash.replace(/\.html/,'') + ".html";
 				//for example in Ace PHP demo version we convert "ajax.php#page/dashboard" to "ajax.php?page=dashboard" and load it
-				return path + "?" + hash.replace(/\//, "=");
+				//return path + "?" + hash.replace(/\//, "=");
 			  }			  
 		}
 		   
