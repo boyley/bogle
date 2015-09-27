@@ -6,8 +6,15 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.SortHandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
+
+import java.util.List;
 
 /**
  * Created by lenovo on 2015/9/19.
@@ -25,13 +32,11 @@ public class WebConfigurer extends WebMvcConfigurerAdapter implements EmbeddedSe
         container.setMimeMappings(mappings);
     }
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//    }
+    @Override
+    public void addArgumentResolvers(
+            List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new SortHandlerMethodArgumentResolver());
+        argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
+    }
 
 }

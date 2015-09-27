@@ -1,5 +1,7 @@
 package com.bogle.erp.config;
 
+import org.springframework.data.domain.Page;
+
 /**
  * Created by lenovo on 2015/9/19.
  */
@@ -16,6 +18,7 @@ public final  class Constants {
 
     public static final String SYSTEM_ACCOUNT = "system";
 
+    Page page;
     private Constants() {
     }
 }
