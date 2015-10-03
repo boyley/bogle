@@ -1,6 +1,6 @@
 ---
 logging:
-    file: logs/erp.log
+    file: /logs/erp.log
 
 ---
 server:
