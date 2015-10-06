@@ -13,7 +13,7 @@
     <name>modules</name>
     <url>http://maven.apache.org</url>
     <modules>
-        <module>mybatis-autoconfigure</module>
+        <module>spring-boot-mybatis</module>
     </modules>
 
     <properties>
