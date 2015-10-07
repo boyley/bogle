@@ -24,20 +24,20 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
 		Assert.notNull(sessionTemplate, "SqlSessionTemplate must not be null!");
 		Assert.notNull(mappedStatementNamespace, "mappedStatementNamespace must not be null!");
 		this.sessionTemplate = sessionTemplate;
-		this.mappedStatementId = mappedStatementNamespace + ".find";
+		this.mappedStatementId = mappedStatementNamespace;
 	}
 	
 	@Override
 	public T findOne(ID id) {
 		Map<String, ID> params = new HashMap<>();
 		params.put("pk", id);
-		return sessionTemplate.selectOne(mappedStatementId, params);
+		return selectOne("find", params);
 	}
 
 	@Override
 	public List<T> findAll() {
 		Map<String, ID> params = new HashMap<>();
-		return sessionTemplate.selectList(mappedStatementId, params);
+		return selectList("find", params);
 	}
 
 	@Override
