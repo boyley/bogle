@@ -6,7 +6,7 @@
 
     <!--指定特定数据库的jdbc驱动jar包的位置 -->
     <classPathEntry
-            location="D:\maven\repo\mysql\mysql-connector-java\5.1.36\mysql-connector-java-5.1.36.jar"/>
+            location="D:\repo\mysql\mysql-connector-java\5.1.36\mysql-connector-java-5.1.36.jar"/>
 
     <context id="default" targetRuntime="MyBatis3">
         <commentGenerator>
@@ -17,7 +17,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/erp?characterEncoding=utf8"
                         userId="root"
-                        password="">
+                        password="root">
         </jdbcConnection>
 
         <javaTypeResolver>
