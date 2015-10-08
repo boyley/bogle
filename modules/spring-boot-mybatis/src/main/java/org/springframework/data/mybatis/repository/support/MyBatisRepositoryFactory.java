@@ -47,8 +47,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
     @Override
     protected Object getTargetRepository(RepositoryMetadata repositoryMetadata) {
         RepositoryInformation repositoryInformation = super.getRepositoryInformation(repositoryMetadata, MybatisPersistableEntityInformation.class);
-//		return new SimpleMyBatisRepository(sessionTemplate, repositoryMetadata.getRepositoryInterface().getCanonicalName());
-        return new SimpleMyBatisRepository(sessionTemplate, repositoryInformation, repositoryMetadata.getRepositoryInterface().getCanonicalName());
+        return new SimpleMyBatisRepository(sessionTemplate, repositoryInformation);
     }
 
 
