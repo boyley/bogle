@@ -4,9 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.mybatis.ApplicationConfig;
+import org.springframework.data.mybatis.SampleApplication;
 import org.springframework.data.mybatis.domain.Customer;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,8 +15,9 @@ import java.util.List;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@SpringApplicationConfiguration(classes = ApplicationConfig.class)
+@SpringApplicationConfiguration(classes = SampleApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @Transactional
 public class CustomerRepositoryTest {
 
