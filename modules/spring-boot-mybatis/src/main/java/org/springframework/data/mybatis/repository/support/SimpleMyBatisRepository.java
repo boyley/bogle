@@ -38,7 +38,7 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
     @Override
     public List<T> findAll() {
         Map<String, ID> params = new HashMap<>();
-        return sessionTemplate.selectList("find", params);
+        return selectList("find", params);
     }
 
     @Override
