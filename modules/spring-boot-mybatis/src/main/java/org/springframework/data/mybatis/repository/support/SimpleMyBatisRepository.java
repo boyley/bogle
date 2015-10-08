@@ -1,7 +1,11 @@
 package org.springframework.data.mybatis.repository.support;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
+import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.util.Assert;
@@ -18,11 +22,34 @@ import java.util.Map;
 public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSessionRepositorySupport implements MyBatisRepository<T, ID> {
 
     private final RepositoryMetadata repositoryMetadata;
+    private final EntityInformation<T, ID> entityInformation;
 
-    public SimpleMyBatisRepository(SqlSessionTemplate sessionTemplate, RepositoryMetadata repositoryMetadata) {
+    public SimpleMyBatisRepository(SqlSessionTemplate sessionTemplate, RepositoryMetadata repositoryMetadata, EntityInformation<T, ID> entityInformation) {
         super(sessionTemplate);
-        Assert.notNull(sessionTemplate, "SqlSessionTemplate must not be null!");
+        Assert.notNull(repositoryMetadata);
+        Assert.notNull(entityInformation);
         this.repositoryMetadata = repositoryMetadata;
+        this.entityInformation = entityInformation;
+    }
+
+    @Override
+    public <S extends T> S save(S entity) {
+        boolean isNew = entityInformation.isNew(entity);
+        if (isNew) {
+            insert("insert", entity);
+        } else {
+            update("update", entity);
+        }
+        return entity;
+    }
+
+    @Override
+    public <S extends T> Iterable<S> save(Iterable<S> entities) {
+        if (null == entities) return entities;
+        for (S entity : entities) {
+            save(entity);
+        }
+        return entities;
     }
 
     @Override
@@ -39,9 +66,12 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
     }
 
     @Override
-    public <S extends T> S save(S entity) {
-        return null;
+    public Iterable<T> findAll(Iterable<ID> ids) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("ids", ids);
+        return selectList("selectByIds", params);
     }
+
 
     @Override
     public boolean exists(ID id) {
@@ -53,9 +83,65 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
         return findAll().size();
     }
 
+    @Override
+    public void delete(ID id) {
+        super.delete("deleteById", id);
+    }
+
+    @Override
+    public void delete(T entity) {
+        ID id = entityInformation.getId(entity);
+        delete(id);
+    }
+
+    @Override
+    public void delete(Iterable<? extends T> entities) {
+        if (null == entities) return;
+        for (T entity : entities) {
+            delete(entity);
+        }
+    }
+
+    @Override
+    public void deleteAll() {
+        super.delete("deleteAll");
+    }
+
 
     @Override
     protected String getNamespace() {
         return repositoryMetadata.getRepositoryInterface().getCanonicalName();
+    }
+
+    @Override
+    public Iterable<T> findAll(Sort sort) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sorts", sort);
+        return selectList("selectByPager", params);
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable) {
+        return findAll(pageable, null);
+    }
+
+    @Override
+    public <X extends T> Page<T> findAll(Pageable pageable, X condition) {
+        return findByPager(pageable, "selectByPager", "countByPager", condition);
+    }
+
+    @Override
+    public <X extends T> Iterable<T> findAll(X condition) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("condition", condition);
+        return selectList("selectByPager", params);
+    }
+
+    @Override
+    public <X extends T> Iterable<T> findAll(Sort sort, X condition) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("condition", condition);
+        params.put("sorts", sort);
+        return selectList("selectByPager", params);
     }
 }

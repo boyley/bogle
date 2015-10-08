@@ -46,7 +46,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
     @SuppressWarnings("rawtypes")
     @Override
     protected Object getTargetRepository(RepositoryMetadata repositoryMetadata) {
-        return new SimpleMyBatisRepository(sessionTemplate, repositoryMetadata);
+        return new SimpleMyBatisRepository(sessionTemplate, repositoryMetadata,getEntityInformation(repositoryMetadata.getDomainType()));
     }
 
 
