@@ -15,23 +15,23 @@ import java.util.Map;
  * between org.springframework.data.mybatis.repository.MyBatisRepository and mybatis mapper
  */
 public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSessionRepositorySupport implements MyBatisRepository<T, ID> {
-	
+
 	private final SqlSessionTemplate sessionTemplate;
 	private final String mappedStatementId;
-	
+
 	public SimpleMyBatisRepository(SqlSessionTemplate sessionTemplate, String mappedStatementNamespace) {
 		super(sessionTemplate);
 		Assert.notNull(sessionTemplate, "SqlSessionTemplate must not be null!");
 		Assert.notNull(mappedStatementNamespace, "mappedStatementNamespace must not be null!");
 		this.sessionTemplate = sessionTemplate;
-		this.mappedStatementId = mappedStatementNamespace;
+		this.mappedStatementId = mappedStatementNamespace + ".find";
 	}
-	
+
 	@Override
 	public T findOne(ID id) {
 		Map<String, ID> params = new HashMap<>();
 		params.put("pk", id);
-		return selectOne("find", params);
+		return sessionTemplate.selectOne(mappedStatementId, params);
 	}
 
 	@Override
