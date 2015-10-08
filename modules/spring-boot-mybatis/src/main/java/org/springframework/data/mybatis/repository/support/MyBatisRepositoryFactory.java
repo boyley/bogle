@@ -1,6 +1,7 @@
 package org.springframework.data.mybatis.repository.support;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
 import org.springframework.data.mybatis.repository.query.MyBatisQueryLookupStrategy;
 import org.springframework.data.repository.core.EntityInformation;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
 	
 	private final SqlSessionTemplate sessionTemplate;
+	private EntityInformation entityInformation = null;
 	
 	public MyBatisRepositoryFactory(SqlSessionTemplate sessionTemplate) {
 		super();
@@ -24,12 +26,16 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
 	}
 
 	@Override
-	public <T, ID extends Serializable> EntityInformation<T, ID> getEntityInformation(
-			Class<T> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public <T, ID extends Serializable> EntityInformation<T, ID> getEntityInformation(Class<T> domainClass) {
+		if (null != entityInformation) return entityInformation;
 
+		if (Persistable.class.isAssignableFrom(domainClass)) {
+			entityInformation = new MybatisPersistableEntityInformation(domainClass);
+		} else {
+			entityInformation = new MybatisEntityInformation<T, ID>(domainClass);
+		}
+		return entityInformation;
+	}
 	@Override
 	protected Class<?> getRepositoryBaseClass(RepositoryMetadata repositoryMetadata) {
 		return MyBatisRepository.class;
