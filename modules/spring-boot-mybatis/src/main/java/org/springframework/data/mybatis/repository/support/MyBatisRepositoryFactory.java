@@ -46,8 +46,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
     @SuppressWarnings("rawtypes")
     @Override
     protected Object getTargetRepository(RepositoryMetadata repositoryMetadata) {
-        RepositoryInformation repositoryInformation = super.getRepositoryInformation(repositoryMetadata, MybatisPersistableEntityInformation.class);
-        return new SimpleMyBatisRepository(sessionTemplate, repositoryInformation);
+        return new SimpleMyBatisRepository(sessionTemplate, repositoryMetadata);
     }
 
 

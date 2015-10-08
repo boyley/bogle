@@ -1,11 +1,9 @@
 package org.springframework.data.mybatis.repository.support;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
 import org.springframework.data.repository.core.RepositoryInformation;
+import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
@@ -19,22 +17,12 @@ import java.util.Map;
  */
 public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSessionRepositorySupport implements MyBatisRepository<T, ID> {
 
-    private final RepositoryInformation repositoryInformation;
+    private final RepositoryMetadata repositoryMetadata;
 
-    public SimpleMyBatisRepository(SqlSessionTemplate sessionTemplate, RepositoryInformation repositoryInformation) {
+    public SimpleMyBatisRepository(SqlSessionTemplate sessionTemplate, RepositoryMetadata repositoryMetadata) {
         super(sessionTemplate);
         Assert.notNull(sessionTemplate, "SqlSessionTemplate must not be null!");
-        this.repositoryInformation = repositoryInformation;
-    }
-
-    @Override
-    public <S extends T> S save(S entity) {
-        return null;
-    }
-
-    @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return null;
+        this.repositoryMetadata = repositoryMetadata;
     }
 
     @Override
@@ -51,7 +39,7 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
     }
 
     @Override
-    public Iterable<T> findAll(Iterable<ID> ids) {
+    public <S extends T> S save(S entity) {
         return null;
     }
 
@@ -65,39 +53,9 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
         return findAll().size();
     }
 
-    @Override
-    public void delete(ID id) {
-
-    }
-
-    @Override
-    public void delete(T entity) {
-
-    }
-
-    @Override
-    public void delete(Iterable<? extends T> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
 
     @Override
     protected String getNamespace() {
-        return this.repositoryInformation.getRepositoryInterface().getName();
-    }
-
-    @Override
-    public Iterable<T> findAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public Page<T> findAll(Pageable pageable) {
-        return null;
+        return repositoryMetadata.getRepositoryInterface().getCanonicalName();
     }
 }
