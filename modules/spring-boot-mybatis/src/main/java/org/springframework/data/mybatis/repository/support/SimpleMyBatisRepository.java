@@ -112,36 +112,4 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
     protected String getNamespace() {
         return repositoryMetadata.getRepositoryInterface().getCanonicalName();
     }
-
-    @Override
-    public Iterable<T> findAll(Sort sort) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("sorts", sort);
-        return selectList("selectByPager", params);
-    }
-
-    @Override
-    public Page<T> findAll(Pageable pageable) {
-        return findAll(pageable, null);
-    }
-
-    @Override
-    public <X extends T> Page<T> findAll(Pageable pageable, X condition) {
-        return findByPager(pageable, "selectByPager", "countByPager", condition);
-    }
-
-    @Override
-    public <X extends T> Iterable<T> findAll(X condition) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("condition", condition);
-        return selectList("selectByPager", params);
-    }
-
-    @Override
-    public <X extends T> Iterable<T> findAll(Sort sort, X condition) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("condition", condition);
-        params.put("sorts", sort);
-        return selectList("selectByPager", params);
-    }
 }
