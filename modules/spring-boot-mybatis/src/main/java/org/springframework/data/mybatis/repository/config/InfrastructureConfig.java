@@ -1,5 +1,6 @@
 package org.springframework.data.mybatis.repository.config;
 
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,12 +16,15 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
+import org.springframework.data.mybatis.repository.plugin.interceptor.PageInterceptor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Configuration of Mybats:
@@ -55,6 +59,10 @@ public class InfrastructureConfig {
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setTypeAliasesPackage(aliases);
         sessionFactory.setMapperLocations(getResources(resourceLoader, "classpath*:mapper/**/*.xml"));
+
+        List<Interceptor> interceptors = new ArrayList<Interceptor>();
+        interceptors.add(new PageInterceptor());
+        sessionFactory.setPlugins(interceptors.toArray(new Interceptor[]{}));
         return sessionFactory.getObject();
     }
 

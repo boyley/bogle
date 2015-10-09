@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mybatis.SampleApplication;
 import org.springframework.data.mybatis.domain.Customer;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,32 +22,38 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 public class CustomerRepositoryTest {
 
-	@Autowired CustomerRepository customerRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
-	@Test
-	public void testFindOneCustomer() {
-		Customer customer = customerRepository.findOne(100);
-		assertNotNull(customer);
-	}
+    @Test
+    public void testFindOneCustomer() {
+        Customer customer = customerRepository.findOne(100);
+        assertNotNull(customer);
+    }
 
-	@Test
-	public void testFindAllCustomers() {
+    @Test
+    public void testFindPage() {
+        this.customerRepository.findAll(new PageRequest(20, 1),"");
+    }
+
+    @Test
+    public void testFindAllCustomers() {
 //		List<Customer> customers = customerRepository.findAll();
 //		assertNotNull(customers);
 //		assertTrue(customers.size() > 0);
-	}
+    }
 
-	@Test
-	public void testFindCustomersByFirstName() {
-		List<Customer> customers = customerRepository.findByFirstName("John");
-		assertNotNull(customers);
-		assertTrue(customers.size() == 1);
-	}
+    @Test
+    public void testFindCustomersByFirstName() {
+        List<Customer> customers = customerRepository.findByFirstName("John");
+        assertNotNull(customers);
+        assertTrue(customers.size() == 1);
+    }
 
-	@Test
-	public void testFindCustomersByLastName() {
-		List<Customer> customers = customerRepository.findByLastName("Doe");
-		assertNotNull(customers);
-		assertTrue(customers.size() == 3);
-	}
+    @Test
+    public void testFindCustomersByLastName() {
+        List<Customer> customers = customerRepository.findByLastName("Doe");
+        assertNotNull(customers);
+        assertTrue(customers.size() == 3);
+    }
 }
