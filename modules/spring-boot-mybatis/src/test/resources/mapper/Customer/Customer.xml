@@ -35,7 +35,7 @@
 		</if>
 	</select>
 
-	<select id="findAll" resultMap="customerResultMap">
+	<select id="findByPager" resultMap="customerResultMap">
 		SELECT customer.id id,
 		customer.first_name first_name,
 		customer.last_name last_name,

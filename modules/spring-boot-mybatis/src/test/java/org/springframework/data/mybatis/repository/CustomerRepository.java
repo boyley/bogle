@@ -1,11 +1,7 @@
 package org.springframework.data.mybatis.repository;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mybatis.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -13,7 +9,7 @@ import java.util.List;
  * Mapping and queries defined in mapper/Customer/Customer.xml
  * except org.springframework.data.mybatis.repository.CustomerRepository#findByLastName(java.lang.String)
  */
-public interface CustomerRepository extends MyBatisRepository<Customer, Integer> {
+public interface CustomerRepository extends MyBatisRepository<Customer, Integer> , PagingAndSortingRepository<Customer>{
 
     List<Customer> findByFirstName(String firstName);
 
@@ -24,9 +20,4 @@ public interface CustomerRepository extends MyBatisRepository<Customer, Integer>
             "address.street address_street, address.city address_city, address.country address_country FROM customer, address WHERE customer.id = address.customer_id " +
             " AND customer.last_name = #{lastName}")
     List<Customer> findByLastName(String lastName);
-
-    Page<Customer> findAll(Pageable pageable,@Param("abc")String abc);
-
-    Page<Customer> findAll(Pageable pageable);
-
 }
