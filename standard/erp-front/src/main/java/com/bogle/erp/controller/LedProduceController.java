@@ -23,6 +23,7 @@ public class LedProduceController {
     @RequestMapping(value = "/show")
     public ModelAndView show(Pageable pageable) {
         Page<Product> page = productService.findPager(pageable);
+        System.out.println(page);
         return null;
     }
 
