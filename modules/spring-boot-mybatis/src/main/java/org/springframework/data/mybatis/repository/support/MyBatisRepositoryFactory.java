@@ -3,9 +3,8 @@ package org.springframework.data.mybatis.repository.support;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
-import org.springframework.data.mybatis.repository.query.MyBatisQueryLookupStrategy;
+import org.springframework.data.mybatis.repository.query.MybatisQueryLookupStrategy;
 import org.springframework.data.repository.core.EntityInformation;
-import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.data.repository.query.EvaluationContextProvider;
@@ -52,7 +51,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
 
     @Override
     protected QueryLookupStrategy getQueryLookupStrategy(Key key, EvaluationContextProvider evaluationContextProvider) {
-        return MyBatisQueryLookupStrategy.create(sessionTemplate, key);
+        return MybatisQueryLookupStrategy.create(sessionTemplate, key);
     }
 
 
