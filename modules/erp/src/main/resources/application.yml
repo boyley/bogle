@@ -1,5 +1,5 @@
-mybatis.mapper.base.package: com.bogle.erp.mapper
-mybatis.aliases.package: com.bogle.erp.entity
+#mybatis.mapper.base.package: com.bogle.erp.repository
+#mybatis.aliases.package: com.bogle.erp.entity
 
 spring:
     datasource:
@@ -22,7 +22,7 @@ spring:
         filters: stat
     mybatis:
         aliases: com.bogle.erp.entity
-        mapper: com.bogle.erp.mapper
+        mapper: com.bogle.erp.repository
 
 logging:
     file: /logs/erp.log

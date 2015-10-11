@@ -44,7 +44,7 @@ public class InfrastructureConfig {
     private MyBatisProperties myBatisProperties;
 
     @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer(@Value("${mybatis.mapper.base.package:*}") String basePackage) {
+    public MapperScannerConfigurer mapperScannerConfigurer(@Value("${spring.mybatis.mapper:*}") String basePackage) {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setMarkerInterface(MyBatisRepository.class);
         mapperScannerConfigurer.setSqlSessionTemplateBeanName("sqlSessionTemplate");
@@ -54,7 +54,7 @@ public class InfrastructureConfig {
 
     @Bean
     @Autowired
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ResourceLoader resourceLoader, @Value("${mybatis.aliases.package:}") String aliases) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ResourceLoader resourceLoader, @Value("${spring.mybatis.aliases:}") String aliases) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setTypeAliasesPackage(aliases);
