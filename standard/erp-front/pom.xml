@@ -14,6 +14,11 @@
         <start-class>com.bogle.Application</start-class>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.bogle</groupId>
+            <artifactId>erp</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>erp-front</finalName>

@@ -1,6 +1,8 @@
 package com.bogle.erp.controller;
 
 import com.bogle.erp.entity.Product;
+import com.bogle.erp.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "led")
 public class LedProduceController {
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value = "/show")
     public ModelAndView show(Pageable pageable) {
+        Page<Product> page = productService.findPager(pageable);
         return null;
     }
 

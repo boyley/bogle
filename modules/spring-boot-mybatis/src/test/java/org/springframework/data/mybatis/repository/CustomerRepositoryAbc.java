@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 @SpringApplicationConfiguration(classes = SampleApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class CustomerRepositoryTest {
+public class CustomerRepositoryAbc {
 
     @Autowired
     CustomerRepository customerRepository;
