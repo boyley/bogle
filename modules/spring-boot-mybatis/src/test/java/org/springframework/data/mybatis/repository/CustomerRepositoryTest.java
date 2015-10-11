@@ -1,6 +1,5 @@
 package org.springframework.data.mybatis.repository;
 
-import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mybatis.SampleApplication;
 import org.springframework.data.mybatis.domain.Customer;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -24,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 @SpringApplicationConfiguration(classes = SampleApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @Transactional
 public class CustomerRepositoryTest {
 
@@ -48,10 +45,6 @@ public class CustomerRepositoryTest {
         Map<String, Serializable> map = new HashMap<>();
         map.put("firstName", "John");
         Page<Customer> page = this.customerRepository.findByPager(new PageRequest(1, 10, Sort.Direction.ASC, "first_name", "last_name"));
-        List<Customer> list = page.getContent();
-        for (Customer customer : list) {
-            System.out.println(JSONObject.valueToString(customer));
-        }
         System.out.println(page);
     }
 
