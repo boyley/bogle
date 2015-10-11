@@ -32,6 +32,7 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication app = new SpringApplication(Application.class);
         app.setShowBanner(true);
+        app.setWebEnvironment(true);
         SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
         addDefaultProfile(app, source);
         Environment env = app.run(args).getEnvironment();
