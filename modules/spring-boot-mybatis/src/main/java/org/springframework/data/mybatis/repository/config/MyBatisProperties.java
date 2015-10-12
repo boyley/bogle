@@ -27,11 +27,6 @@ public class MyBatisProperties {
     private String typeAliasesPackage;
     private Resource[] mapperLocations;
 
-    @PostConstruct
-    public void init() {
-        System.out.println("init");
-    }
-
     private Properties configurationProperties = new Properties();
 
     public String[] getBasePackage() {

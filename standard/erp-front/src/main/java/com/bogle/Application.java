@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-import org.springframework.data.mybatis.repository.config.EnableMyBatisRepositories;
+import org.springframework.data.mybatis.repository.MybatisConfig;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,8 +18,9 @@ import java.net.UnknownHostException;
 /**
  * Created by lenovo on 2015/9/19.
  */
+
 @SpringBootApplication
-@EnableMyBatisRepositories
+@ComponentScan(basePackageClasses = {MybatisConfig.class, Application.class})
 public class Application extends SpringBootServletInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
