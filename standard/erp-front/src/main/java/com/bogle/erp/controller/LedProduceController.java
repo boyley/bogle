@@ -24,7 +24,7 @@ public class LedProduceController {
     public ModelAndView show(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("led-produce-list");
         Page<Product> page = productService.findPager(pageable);
-        System.out.println(page);
+        modelAndView.addObject("page",page);
         return modelAndView;
     }
 
