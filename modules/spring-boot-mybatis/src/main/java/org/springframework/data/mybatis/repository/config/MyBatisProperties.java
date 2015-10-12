@@ -7,6 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Properties;
@@ -25,6 +26,11 @@ public class MyBatisProperties {
     private Resource configLocation = new ClassPathResource("classpath:mybatis-configuration.xml");
     private String typeAliasesPackage;
     private Resource[] mapperLocations;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("init");
+    }
 
     private Properties configurationProperties = new Properties();
 

@@ -1,5 +1,6 @@
 package org.springframework.data.mybatis.repository.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -8,9 +9,11 @@ import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -41,7 +44,14 @@ import java.util.List;
 public class InfrastructureConfig {
 
     @Autowired
-    private MyBatisProperties myBatisProperties;
+    private MyBatisProperties properties;
+
+    @Bean(initMethod = "init", destroyMethod = "close")
+    @Primary
+    @ConfigurationProperties(prefix = "spring.dataSource")
+    public DataSource dataSource() {
+        return new DruidDataSource();
+    }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(@Value("${spring.mybatis.mapper:*}") String basePackage) {

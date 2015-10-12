@@ -22,9 +22,10 @@ public class LedProduceController {
 
     @RequestMapping(value = "/show")
     public ModelAndView show(Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("led-produce-list");
         Page<Product> page = productService.findPager(pageable);
         System.out.println(page);
-        return null;
+        return modelAndView;
     }
 
     public ModelAndView edit() {
