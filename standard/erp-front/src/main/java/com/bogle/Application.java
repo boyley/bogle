@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {MybatisConfig.class})
+@ComponentScan(basePackageClasses = {MybatisConfig.class, Application.class})
 public class Application extends SpringBootServletInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);

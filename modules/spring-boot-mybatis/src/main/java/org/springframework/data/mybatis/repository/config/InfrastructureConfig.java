@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Configuration of Mybats:
- * <p>
+ * <p/>
  * SqlSessionFactory see: https://mybatis.github.io/mybatis-3/getting-started.html
  * MapperScannerConfigurer see: https://mybatis.github.io/spring/mappers.html#scan
  * SqlSessionTemplate see https://mybatis.github.io/spring/sqlsession.html
@@ -40,9 +40,6 @@ import java.util.List;
 @EnableTransactionManagement
 @ConditionalOnProperty(prefix = "spring.mybatis", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class InfrastructureConfig {
-
-    @Autowired
-    private MyBatisProperties properties;
 
     @Bean(initMethod = "init", destroyMethod = "close")
     @Primary
