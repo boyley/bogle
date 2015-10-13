@@ -11,6 +11,8 @@ public class Product {
 
     private String phone;
 
+    private String email;
+
     private Timestamp createTime;
 
     private Timestamp updateTime;
@@ -55,6 +57,14 @@ public class Product {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Timestamp getCreateTime() {

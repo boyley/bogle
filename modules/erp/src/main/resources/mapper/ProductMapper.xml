@@ -6,6 +6,7 @@
     <result column="producer" property="producer" jdbcType="VARCHAR" />
     <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="typ" property="typ" jdbcType="VARCHAR" />
@@ -15,7 +16,7 @@
     <result column="note" property="note" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, producer, contact, phone, create_time, update_time, typ, colour_temperature, 
+    id, producer, contact, phone,email, create_time, update_time, typ, colour_temperature,
     bri, price,note
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -33,19 +34,7 @@
     delete from product
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bogle.erp.entity.Product" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into product (id, producer, contact, 
-      phone, create_time, update_time, 
-      typ, colour_temperature, bri, 
-      price, note)
-    values (#{id,jdbcType=BIGINT}, #{producer,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{typ,jdbcType=VARCHAR}, #{colourTemperature,jdbcType=VARCHAR}, #{bri,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DOUBLE}, #{note,jdbcType=LONGVARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.bogle.erp.entity.Product" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
       SELECT LAST_INSERT_ID()
@@ -61,6 +50,9 @@
       </if>
       <if test="phone != null" >
         phone,
+      </if>
+      <if test="email != null" >
+        email,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -94,6 +86,9 @@
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -130,6 +125,9 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="email != null" >
+        email = #{phone,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -154,17 +152,5 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bogle.erp.entity.Product" >
-    update product
-    set producer = #{producer,jdbcType=VARCHAR},
-      contact = #{contact,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      typ = #{typ,jdbcType=VARCHAR},
-      colour_temperature = #{colourTemperature,jdbcType=VARCHAR},
-      bri = #{bri,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DOUBLE}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>
