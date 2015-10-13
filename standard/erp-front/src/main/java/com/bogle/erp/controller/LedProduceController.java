@@ -28,8 +28,10 @@ public class LedProduceController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/edit")
     public ModelAndView edit() {
-        return null;
+        ModelAndView modelAndView = new ModelAndView("led-produce-edit");
+        return modelAndView;
     }
 
 
