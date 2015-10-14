@@ -26,12 +26,13 @@
         <form class="form-horizontal" role="form" action="#">
 
             <!-- 生产商 begins -->
-            <div class="form-group has-warning">
+            <div class="form-group">
                 <label for="form-field-1" class="col-xs-12 col-sm-3 control-label no-padding-right">生产商</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-1" placeholder="生产商" class="width-100" />
-                        <i class="ace-icon fa fa-leaf"></i>
+                        <input type="text" required="required" id="form-field-1" placeholder="生产商" class="width-100"/>
+                        <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
                 </div>
                 <div class="help-block col-xs-12 col-sm-reset inline">
@@ -41,11 +42,12 @@
             <!-- 生产商 ends -->
 
             <!-- 联系人 begins -->
-            <div class="form-group has-error">
+            <div class="form-group">
                 <label for="form-field-2" class="col-xs-12 col-sm-3 control-label no-padding-right">联系人</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-2" placeholder="联系人" class="width-100" />
+                        <input type="text" required="required" id="form-field-2" placeholder="联系人" class="width-100"/>
                         <i class="ace-icon fa fa-times-circle"></i>
                     </span>
                 </div>
@@ -56,11 +58,12 @@
             <!-- 联系人 ends -->
 
             <!-- 联系电话 begins -->
-            <div class="form-group has-success">
+            <div class="form-group">
                 <label for="form-field-3" class="col-xs-12 col-sm-3 control-label no-padding-right">联系电话</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-3" placeholder="联系电话" class="width-100" />
+                        <input type="text" required="required" id="form-field-3" placeholder="联系电话" class="width-100"/>
                         <i class="ace-icon fa fa-check-circle"></i>
                     </span>
                 </div>
@@ -71,12 +74,13 @@
             <!-- 联系电话 ends -->
 
             <!-- 联系Email begins -->
-            <div class="form-group has-info">
+            <div class="form-group">
                 <label for="form-field-4" class="col-xs-12 col-sm-3 control-label no-padding-right">Email</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="email" id="form-field-4" placeholder="Email" class="width-100" oninvalid="javascript:alert('校验失败')"/>
-                        <i class="ace-icon fa fa-info-circle"></i>
+                        <input type="email" id="form-field-4" placeholder="Email" class="width-100" />
+                        <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
                 </div>
                 <div class="help-block col-xs-12 col-sm-reset inline">
@@ -86,11 +90,12 @@
             <!-- 联系Email ends -->
 
             <!-- 型号 begins -->
-            <div class="form-group has-success">
+            <div class="form-group">
                 <label for="form-field-5" class="col-xs-12 col-sm-3 control-label no-padding-right">型号</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-5" placeholder="型号" class="width-100" />
+                        <input type="text" required="required" id="form-field-5" placeholder="型号" class="width-100"/>
                         <i class="ace-icon fa fa-check-circle"></i>
                     </span>
                 </div>
@@ -101,11 +106,12 @@
             <!-- 型号 ends -->
 
             <!-- 色温 begins -->
-            <div class="form-group has-success">
+            <div class="form-group">
                 <label for="form-field-6" class="col-xs-12 col-sm-3 control-label no-padding-right">色温</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-6" placeholder="色温" class="width-100" />
+                        <input type="text" required="required" id="form-field-6" placeholder="色温" class="width-100"/>
                         <i class="ace-icon fa fa-check-circle"></i>
                     </span>
                 </div>
@@ -116,11 +122,12 @@
             <!-- 色温 ends -->
 
             <!-- 亮度 begins -->
-            <div class="form-group has-success">
+            <div class="form-group">
                 <label for="form-field-7" class="col-xs-12 col-sm-3 control-label no-padding-right">亮度</label>
+
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-7" placeholder="亮度" class="width-100" />
+                        <input type="text" required="required" id="form-field-7" placeholder="亮度" class="width-100"/>
                         <i class="ace-icon fa fa-check-circle"></i>
                     </span>
                 </div>
@@ -158,8 +165,13 @@
 <script type="text/javascript">
     var scripts = [null, "../../assets/js/jquery-ui.custom.js", "../../assets/js/jquery.ui.touch-punch.js", "../../assets/js/chosen.jquery.js", "../../assets/js/fuelux/fuelux.spinner.js", "../../assets/js/date-time/bootstrap-datepicker.js", "../../assets/js/date-time/bootstrap-timepicker.js", "../../assets/js/date-time/moment.js", "../../assets/js/date-time/daterangepicker.js", "../../assets/js/date-time/bootstrap-datetimepicker.js", "../../assets/js/bootstrap-colorpicker.js", "../../assets/js/jquery.knob.js", "../../assets/js/jquery.autosize.js", "../../assets/js/jquery.inputlimiter.1.3.1.js", "../../assets/js/jquery.maskedinput.js", "../../assets/js/bootstrap-tag.js", null]
     $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
-        //inline scripts related to this page
-
-
+        $('form.form-horizontal input').on('invalid', function () {
+            var divGroup = $(this).closest('.form-group');
+            console.info(divGroup.hasClass('has-error'))
+            if(!divGroup.hasClass('has-error')) {
+                divGroup.addClass('has-error');
+                $(this).next().removeClass('hide');
+            }
+        });
     });
 </script>
