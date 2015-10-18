@@ -10,4 +10,11 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
 
     Page<Product> findPager(Pageable pageable);
+
+    /**
+     * 保存
+     * @param product
+     * @return
+     */
+    Product save(Product product);
 }

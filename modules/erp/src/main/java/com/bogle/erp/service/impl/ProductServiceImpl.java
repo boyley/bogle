@@ -21,4 +21,9 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findPager(Pageable pageable) {
         return productRepository.findByPager(pageable);
     }
+
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
 }

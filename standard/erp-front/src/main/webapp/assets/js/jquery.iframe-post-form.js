@@ -1,6 +1,6 @@
 /**
  * jQuery plugin for posting form including file inputs.
- * 
+ *
  * Copyright (c) 2010 - 2011 Ewen Elder
  *
  * Licensed under the MIT and GPL licenses:
@@ -9,7 +9,7 @@
  *
  * @author: Ewen Elder <ewen at jainaewen dot com> <glomainn at yahoo dot co dot uk>
  * @version: 1.1.1 (2011-07-29)
-**/
+ **/
 (function ($)
 {
 	$.fn.iframePostForm = function (options)
@@ -19,59 +19,68 @@
 			element,
 			status = true,
 			iframe;
-		
+
 		options = $.extend({}, $.fn.iframePostForm.defaults, options);
-		
-		
+
+
 		// Add the iframe.
 		if (!$('#' + options.iframeID).length)
 		{
 			$('body').append('<iframe id="' + options.iframeID + '" name="' + options.iframeID + '" style="display:none" />');
 		}
-		
-		
+
+
 		return $(this).each(function ()
 		{
 			element = $(this);
-			
-			
+
+
 			// Target the iframe.
 			element.attr('target', options.iframeID);
-			
-			
+
+
 			// Submit listener.
 			element.submit(function ()
 			{
 				// If status is false then abort.
 				status = options.post.apply(this);
-				
+
 				if (status === false)
 				{
 					return status;
 				}
-				
-				
+
+
 				iframe = $('#' + options.iframeID).load(function ()
 				{
 					response = iframe.contents().find('body');
-					
-					
+
+
 					if (options.json)
 					{
-						returnReponse = $.parseJSON(response.html());
+						var jsonString = response.html();
+						var start = jsonString.indexOf('{');
+						if(start > 0) {
+							jsonString = jsonString.substring(start);
+						}
+						var end = jsonString.lastIndexOf('}');
+						if(end > 0) {
+							jsonString = jsonString.substring(0,end + 1);
+						}
+						returnReponse = $.parseJSON(jsonString);
 					}
-					
+
 					else
 					{
 						returnReponse = response.html();
 					}
-					
-					
+
+
 					options.complete.apply(this, [returnReponse]);
-					
+
 					iframe.unbind('load');
-					
-					
+
+
 					setTimeout(function ()
 					{
 						response.html('');
@@ -80,8 +89,8 @@
 			});
 		});
 	};
-	
-	
+
+
 	$.fn.iframePostForm.defaults =
 	{
 		iframeID : 'iframe-post-form',       // Iframe ID.

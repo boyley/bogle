@@ -1,5 +1,6 @@
 package com.bogle.erp.controller;
 
+import com.bogle.erp.controller.web.Api;
 import com.bogle.erp.entity.Product;
 import com.bogle.erp.service.ProductService;
 import org.slf4j.Logger;
@@ -8,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,10 +37,15 @@ public class LedProduceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Product add(Product product) {
+
+    @RequestMapping(value = "/save", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Api<Product> add(Product product) {
         log.info("save.................");
-        return product;
+        product = this.productService.save(product);
+        Api<Product> api = new Api<>(!product.isNew(), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), product);
+        return api;
     }
 
     @RequestMapping(value = "/edit")

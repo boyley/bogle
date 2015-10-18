@@ -1,8 +1,10 @@
 package com.bogle.erp.entity;
 
+import org.springframework.data.domain.Persistable;
+
 import java.sql.Timestamp;
 
-public class Product {
+public class Product implements Persistable<Long> {
     private Long id;
 
     private String producer;
@@ -29,6 +31,11 @@ public class Product {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 
     public void setId(Long id) {
