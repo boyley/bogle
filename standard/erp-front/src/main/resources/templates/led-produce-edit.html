@@ -166,7 +166,8 @@
         $('form[role="form"]').iframePostForm({
             json: true,
             post: function() {
-
+                var target = document.getElementById('foo');
+                var spinner = new Spinner().spin(target);
             },
             complete: function (response) {
                 console.info(response);
