@@ -11,20 +11,22 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     //inline scripts related to this page
     $(function ($) {
 
-        $(".bootbox-confirm-edit").on(ace.click_event, function () {
+        $("table tbody").on(ace.click_event,'.bootbox-confirm-edit', function () {
             bootbox.confirm("<h1>确定修改吗?</h1>", function (result) {
                 if (result) {
                     //
                 }
             });
+            return false;
         });
 
-        $(".bootbox-confirm-delete").on(ace.click_event, function () {
+        $("table tbody").on(ace.click_event,'.bootbox-confirm-delete', function () {
             bootbox.confirm("<h1>确定删除吗?</h1>", function (result) {
                 if (result) {
                     //
                 }
             });
+            return false;
         });
     });
 
