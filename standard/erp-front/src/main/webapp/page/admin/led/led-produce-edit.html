@@ -27,7 +27,7 @@
 
             <!-- 生产商 begins -->
             <div class="form-group">
-                <label for="form-field-1" class="col-xs-12 col-sm-3 control-label no-padding-right">生产商</label>
+                <label for="form-field-1" class="col-xs-12 col-sm-3 control-label no-padding-right">生产商<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -41,7 +41,7 @@
 
             <!-- 联系人 begins -->
             <div class="form-group">
-                <label for="form-field-2" class="col-xs-12 col-sm-3 control-label no-padding-right">联系人</label>
+                <label for="form-field-2" class="col-xs-12 col-sm-3 control-label no-padding-right">联系人<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -81,7 +81,7 @@
 
             <!-- 型号 begins -->
             <div class="form-group">
-                <label for="form-field-5" class="col-xs-12 col-sm-3 control-label no-padding-right">型号</label>
+                <label for="form-field-5" class="col-xs-12 col-sm-3 control-label no-padding-right">型号<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -95,7 +95,7 @@
 
             <!-- 色温 begins -->
             <div class="form-group">
-                <label for="form-field-6" class="col-xs-12 col-sm-3 control-label no-padding-right">色温</label>
+                <label for="form-field-6" class="col-xs-12 col-sm-3 control-label no-padding-right">色温<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -109,7 +109,7 @@
 
             <!-- 亮度 begins -->
             <div class="form-group">
-                <label for="form-field-7" class="col-xs-12 col-sm-3 control-label no-padding-right">亮度</label>
+                <label for="form-field-7" class="col-xs-12 col-sm-3 control-label no-padding-right">亮度<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -123,7 +123,7 @@
 
             <!-- 价格 begins -->
             <div class="form-group">
-                <label for="form-field-8" class="col-xs-12 col-sm-3 control-label no-padding-right">价格</label>
+                <label for="form-field-8" class="col-xs-12 col-sm-3 control-label no-padding-right">价格<b class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -180,12 +180,40 @@
                 $('.page-content-area').ace_ajax('startLoading');
             },
             complete: function (response) {
+                console.info(response)
                 $('.page-content-area').ace_ajax('stopLoading',true);
-                bootbox.confirm({
-                    size: 'small',
-                    message: "Your message here…",
-                    callback: function(result){ /* your callback code */ }
-                })
+                if(response.success) {
+                    bootbox.dialog({
+                        message: "<h5 class='bigger-110'>添加成功</h5>",
+                        buttons:
+                        {
+                            "proceed" :
+                            {
+                                "label" : "<i class='ace-icon fa fa-check'></i> 继续添加",
+                                "className" : "btn-sm btn-success",
+                                "callback": function() {
+                                    //Example.show("great success");
+                                }
+                            },
+                            "back" :
+                            {
+                                "label" : "<i class='ace-icon fa fa-reply'></i> 返回",
+                                "className" : "btn-sm btn-primary",
+                                "callback": function() {
+                                    //Example.show("Primary button");
+                                    var demo_ajax_options = {
+                                        'update_active': false,
+                                        'close_active': true,
+                                        'loading_text': '数据加载中',
+                                        'loading_overlay': 'body',//default hash
+                                        'content_url': document.location.pathname + '/page/admin/led/led-produce-list.html'
+                                    }
+                                    $('[data-ajax-content=true]').ace_ajax(demo_ajax_options)
+                                }
+                            }
+                        }
+                    });
+                }
             }
         })
     });
