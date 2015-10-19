@@ -11,8 +11,6 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     //inline scripts related to this page
     $(function ($) {
 
-        $('[data-rel=tooltip]').tooltip();
-
         $(".bootbox-confirm-edit").on(ace.click_event, function () {
             bootbox.confirm("<h1>确定修改吗?</h1>", function (result) {
                 if (result) {
@@ -45,14 +43,19 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         infoFormat: '{start} ~ {end}条，共{total}条',
         remote: {
             url: '/led/list',
+            beforeSend: function(XMLHttpRequest){
+                $('.page-content-area').ace_ajax('startLoading');
+            },
             totalName: 'totalElements',
             pageSizeName: 'size',
             pageIndexName: 'page',
             success: function (data, pageIndex) {
-                //$("#eventLog").append('pageIndex : ' + pageIndex + ' ,  remote callback : '
-                //    + JSON.stringify(data) + '<br />');
                 $(".m-pagination-group input[type='text']").css({'padding': '0px'});
                 $("tbody").empty().html($("#tableTmpl").render(data.content));
+                $('[data-rel=tooltip]').tooltip();
+            },
+            complete: function(XMLHttpRequest, textStatu){
+                $('.page-content-area').ace_ajax('stopLoading', true);
             }
         }
     }).on("pageClicked", function (event, pageIndex) {
