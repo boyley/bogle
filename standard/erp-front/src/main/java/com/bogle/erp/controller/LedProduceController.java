@@ -29,12 +29,10 @@ public class LedProduceController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/show")
-    public ModelAndView show(Pageable pageable) {
-        ModelAndView modelAndView = new ModelAndView("led-produce-list");
+    @RequestMapping(value = "/list")
+    public Page<Product> show(Pageable pageable) {
         Page<Product> page = productService.findPager(pageable);
-        modelAndView.addObject("page", page);
-        return modelAndView;
+        return page;
     }
 
 

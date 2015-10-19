@@ -1,13 +1,11 @@
 var scripts = [
     null,
-    "../../assets/js/dataTables/jquery.dataTables.js",
-    "../../assets/js/dataTables/jquery.dataTables.bootstrap.js",
-    "../../assets/js/dataTables/extensions/TableTools/js/dataTables.tableTools.js",
-    "../../assets/js/dataTables/extensions/ColVis/js/dataTables.colVis.js",
     "../../assets/js/jquery-ui.custom.js",
     "../../assets/js/jquery.ui.touch-punch.js",
     "../../assets/js/bootbox.js",
     "../../assets/js/spin.js",
+    "../../assets/js/jsrender.js",
+    "../../assets/js/jquery.pagination-1.2.7.js",
     null]
 $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     //inline scripts related to this page
@@ -30,36 +28,39 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                 }
             });
         });
+    });
 
-        var language = {
-            "sProcessing": "处理中...",
-            "sLengthMenu": "每页显示 _MENU_ 条结果",
-            "sZeroRecords": "没有匹配结果",
-            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-            "sInfoPostFix": "",
-            "sSearch": "搜索:",
-            "sUrl": "",
-            "sEmptyTable": "表中数据为空",
-            "sLoadingRecords": "载入中...",
-            "sInfoThousands": ",",
-            "oPaginate": {
-                "sFirst": "首页",
-                "sPrevious": "上一页",
-                "sNext": "下一页",
-                "sLast": "末页"
-            },
-            "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
+    $("#pagination").page({
+        showFirstLastBtn: true,
+        firstBtnText: '首页',
+        lastBtnText: '尾页',
+        prevBtnText: '上一页',
+        nextBtnText: '下一页',
+        showInfo: true,
+        showJump: true,
+        jumpBtnText: '跳转',
+        showPageSizes: true,
+        pageSize: 20,
+        pageSizeItems: [20, 30, 50, 100],
+        infoFormat: '{start} ~ {end}条，共{total}条',
+        remote: {
+            url: '/led/list',
+            totalName: 'totalElements',
+            pageSizeName: 'size',
+            pageIndexName: 'page',
+            success: function (data, pageIndex) {
+                //$("#eventLog").append('pageIndex : ' + pageIndex + ' ,  remote callback : '
+                //    + JSON.stringify(data) + '<br />');
+                $(".m-pagination-group input[type='text']").css({'padding': '0px'});
+                $("tbody").empty().html($("#tableTmpl").render(data.content));
             }
-        };
-
-        $('#dynamic-table').dataTable({
-            'language': language,
-            "dom": '<"top">rt<"bottom"ip><"clear">'
-        });
+        }
+    }).on("pageClicked", function (event, pageIndex) {
+        $("#eventLog").append('EventName = pageClicked , pageIndex = ' + pageIndex + '<br />');
+    }).on('jumpClicked', function (event, pageIndex) {
+        $("#eventLog").append('EventName = jumpClicked , pageIndex = ' + pageIndex + '<br />');
+    }).on('pageSizeChanged', function (event, pageSize) {
+        $("#eventLog").append('EventName = pageSizeChanged , pageSize = ' + pageSize + '<br />');
     });
 });
 

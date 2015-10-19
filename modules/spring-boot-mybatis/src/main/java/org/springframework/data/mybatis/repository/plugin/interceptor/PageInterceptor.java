@@ -43,7 +43,7 @@ public class PageInterceptor implements Interceptor {
             // 原始的SQL语句
             String sql = boundSql.getSql();
             // 查询总条数的SQL语句
-            String countSql = "select count(*) from (" + sql + ")a";
+            String countSql = "select count(1) from (" + sql + ")a";
             Connection connection = (Connection)invocation.getArgs()[0];
             PreparedStatement countStatement = connection.prepareStatement(countSql);
             ParameterHandler parameterHandler = (ParameterHandler)metaObject.getValue("delegate.parameterHandler");
@@ -69,7 +69,7 @@ public class PageInterceptor implements Interceptor {
             }
 
             // 改造后带分页查询的SQL语句
-            String pageSql = sql + " limit " + (pageable.getPageNumber() <= 1 ? 0 : (pageable.getPageNumber() - 1) * pageable.getPageSize())  + "," + pageable.getPageSize();
+            String pageSql = sql + " limit " + ((pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber()) * pageable.getPageSize())  + "," + pageable.getPageSize();
             metaObject.setValue("delegate.boundSql.sql", pageSql);
         }
 
