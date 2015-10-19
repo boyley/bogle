@@ -1,10 +1,10 @@
 $(function ($) {
 
-    $('form.form-horizontal input').on('invalid', function () {
+    $('form.form-horizontal').on('invalid','input', function () {
         oninvalid(this);
     });
 
-    $('form.form-horizontal input').on('keyup', function () {
+    $('form.form-horizontal').on('keyup','input', function () {
         var validityState = this.validity;
         oninvalid(this, validityState.valid);
     });
