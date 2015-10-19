@@ -289,8 +289,18 @@
 				var resolved = 0;
 				for(var i = 0; i < scripts.length; i++) if(scripts[i]) {
 					(function() {
-						var script_name = "js-"+scripts[i].replace(/[^\w\d\-]/g, '-').replace(/\-\-/g, '-');
-						if( ajax_loaded_scripts[script_name] !== true )	deferred_count++;
+
+						var script = scripts[i];
+						var url = script;
+						var cache = true;
+						if(typeof(script) !== 'string') {
+							url = script.url;
+							cache = script.cache;
+						}
+
+						var script_name = "js-"+url.replace(/[^\w\d\-]/g, '-').replace(/\-\-/g, '-');
+						if(!cache || ajax_loaded_scripts[script_name] !== true )
+							deferred_count++;
 					})()
 				}
 				
@@ -308,11 +318,17 @@
 					if(!scripts[index]) {//could be null sometimes
 						return nextScript(index);
 					}
-				
-					var script_name = "js-"+scripts[index].replace(/[^\w\d\-]/g, '-').replace(/\-\-/g, '-');
+					var script = scripts[index];
+					var url = script;
+					var cache = true;
+					if(typeof(script) !== 'string') {
+						url = script.url;
+						cache = script.cache;
+					}
+					var script_name = "js-"+url.replace(/[^\w\d\-]/g, '-').replace(/\-\-/g, '-');
 					//only load scripts that are not loaded yet!
-					if( ajax_loaded_scripts[script_name] !== true ) {
-						$.getScript(scripts[index])
+					if(!cache || ajax_loaded_scripts[script_name] !== true ) {
+						$.getScript(url)
 						.done(function() {
 							ajax_loaded_scripts[script_name] = true;
 						})

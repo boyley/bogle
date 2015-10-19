@@ -149,10 +149,10 @@
                         重置
                     </button>
                     &nbsp; &nbsp; &nbsp;
-                    <button class="btn btn-primary" type="button" onclick="javascript:window.history.back()">
+                    <a class="btn btn-primary" data-url="page/admin/led/led-produce-list.html" href="#page/admin/led/led-produce-list.html">
                         <i class="ace-icon fa fa-reply bigger-110"></i>
                         返回
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="hr hr-24"></div>
@@ -170,8 +170,8 @@
         "../../assets/js/jquery.ui.touch-punch.js",
         "../../assets/js/chosen.jquery.js",
         '../../assets/js/bootbox.js',
-        "../../assets/js/validity.state.js",
-        "../../assets/js/jquery.iframe-post-form.js",
+        {url:"../../assets/js/validity.state.js",cache:false},
+        {url:"../../assets/js/jquery.iframe-post-form.js",cache:false},
         null]
     $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         $('form[role="form"]').iframePostForm({
