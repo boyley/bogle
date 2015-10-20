@@ -192,7 +192,9 @@
                                 "label" : "<i class='ace-icon fa fa-check'></i> 继续添加",
                                 "className" : "btn-sm btn-success",
                                 "callback": function() {
-                                    //Example.show("great success");
+                                    var url = '#page/admin/led/led-produce-edit.html';
+                                    $('.page-content-area[data-ajax-content=true]').ace_ajax('loadUrl',url);
+                                    window.location.href = url;
                                 }
                             },
                             "back" :
@@ -201,15 +203,9 @@
                                 "className" : "btn-sm btn-primary",
                                 "callback": function() {
                                     //Example.show("Primary button");
-//                                    var demo_ajax_options = {
-//                                        'update_active': false,
-//                                        'close_active': true,
-//                                        'loading_text': '数据加载中',
-//                                        'loading_overlay': 'body',//default hash
-//                                        'content_url': document.location.pathname + '/page/admin/led/led-produce-list.html'
-//                                    }
-//                                    $('[data-ajax-content=true]').ace_ajax(demo_ajax_options)
-                                    $('.page-content-area').ace_ajax('loadAddr','/page/admin/led/led-produce-list.html');
+                                    var url = '#page/admin/led/led-produce-list.html';
+                                    $('.page-content-area[data-ajax-content=true]').ace_ajax('loadUrl',url);
+                                    window.location.href = url;
                                 }
                             }
                         }
