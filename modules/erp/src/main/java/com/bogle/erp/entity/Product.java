@@ -1,5 +1,6 @@
 package com.bogle.erp.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.Persistable;
 
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ public class Product implements Persistable<Long> {
 
     private String email;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     private Timestamp createTime;
 
     private Timestamp updateTime;
