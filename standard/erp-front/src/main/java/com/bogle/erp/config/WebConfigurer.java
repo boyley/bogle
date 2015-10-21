@@ -12,9 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
@@ -45,10 +48,37 @@ public class WebConfigurer extends WebMvcConfigurerAdapter implements EmbeddedSe
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-        converters.add(customJackson2HttpMessageConverter());
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.favorPathExtension(false).
+                favorParameter(true).
+                parameterName("mediaType").
+                ignoreAcceptHeader(false).
+                useJaf(false).
+                defaultContentType(MediaType.APPLICATION_JSON).
+                mediaType("xml", MediaType.APPLICATION_XML).
+                mediaType("json", MediaType.APPLICATION_JSON);
     }
+
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
+        messageConverters.add(customJackson2HttpMessageConverter());
+        super.configureMessageConverters(messageConverters);
+    }
+
+//    @Bean
+//    public HttpMessageConverter<Object> createXmlHttpMessageConverter() {
+//        MarshallingHttpMessageConverter xmlConverter =
+//                new MarshallingHttpMessageConverter();
+//
+//        XStreamMarshaller xstreamMarshaller = new XStreamMarshaller();
+//        xstreamMarshaller.setAnnotatedClasses(Message.class);
+//
+//        xmlConverter.setMarshaller(xstreamMarshaller);
+//        xmlConverter.setUnmarshaller(xstreamMarshaller);
+//
+//        return xmlConverter;
+//    }
 
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {

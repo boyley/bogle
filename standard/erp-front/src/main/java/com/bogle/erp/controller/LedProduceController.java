@@ -26,11 +26,16 @@ public class LedProduceController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Product> show(@RequestBody Pageable pageable) {
-        log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
-        Page<Product> page = productService.findPager(pageable);
-        return page;
+//    @RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public Page<Product> show(@RequestBody Pageable pageable) {
+//        log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
+//        Page<Product> page = productService.findPager(pageable);
+//        return page;
+//    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<Product> show(@RequestBody String message) {
+       return null;
     }
 
 

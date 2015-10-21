@@ -161,10 +161,12 @@
                 this.options.remote.params = $.extend({}, this.options.remote.params, params);
             }
             var requestParams = $.extend({}, this.options.remote.params, pageParams);
+            requestParams = JSON.stringify(requestParams);
+            console.info(JSON.stringify(JSON.stringify(requestParams)));
             $.ajax({
                 url: this.options.remote.url,
                 dataType: 'json',
-                data: JSON.stringify(requestParams),
+                data: requestParams,
                 method:'POST',
                 contentType: 'application/Json; charset=UTF-8',
                 async: false,
