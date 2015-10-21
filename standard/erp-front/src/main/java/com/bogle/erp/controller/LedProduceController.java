@@ -11,10 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -29,8 +26,9 @@ public class LedProduceController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/list")
-    public Page<Product> show(Pageable pageable) {
+    @RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<Product> show(@RequestBody Pageable pageable) {
+        log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
         Page<Product> page = productService.findPager(pageable);
         return page;
     }

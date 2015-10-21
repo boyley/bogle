@@ -92,6 +92,12 @@
         }
 
         var eventHandler = function (event) {
+
+            console.info('abc');
+
+            console.info(event);
+
+
             var that = event.data.page;
             var $target = $(event.target);
             if (event.type === 'click' && $target.data('pageIndex') !== undefined && !$target.parent().hasClass('active')) {
@@ -158,9 +164,15 @@
             $.ajax({
                 url: this.options.remote.url,
                 dataType: 'json',
-                data: requestParams,
-                contentType: 'application/Json',
+                data: JSON.stringify(requestParams),
+                method:'POST',
+                contentType: 'application/Json; charset=UTF-8',
                 async: false,
+                statusCode: {
+                    404: function() {
+                        alert("404 page not found" );
+                    }
+                },
                 beforeSend: function (XMLHttpRequest) {
                     if (typeof that.options.remote.beforeSend === 'function') that.options.remote.beforeSend(XMLHttpRequest);
                 },
