@@ -11,7 +11,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     //inline scripts related to this page
     $(function ($) {
 
-        $("table tbody").on(ace.click_event,'.bootbox-confirm-edit', function () {
+        $("table tbody").on(ace.click_event, '.bootbox-confirm-edit', function () {
             bootbox.confirm("<h1>确定修改吗?</h1>", function (result) {
                 if (result) {
                     //
@@ -20,10 +20,19 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             return false;
         });
 
-        $("table tbody").on(ace.click_event,'.bootbox-confirm-delete', function () {
+        $("table tbody").on(ace.click_event, '.bootbox-confirm-delete', function () {
             bootbox.confirm("<h1>确定删除吗?</h1>", function (result) {
                 if (result) {
-                    //
+                    console.info('xxx');
+                    $.ajax('/led/remove',
+                        {
+                            data: {ids: [1, 2, 3]},
+                            dataType: "json",
+                            type: "post"
+                        })
+                        .success(function (result) {
+                            console.info(result);
+                        });
                 }
             });
             return false;
@@ -45,7 +54,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         infoFormat: '{start} ~ {end}条，共{total}条',
         remote: {
             url: '/led/list',
-            beforeSend: function(XMLHttpRequest){
+            beforeSend: function (XMLHttpRequest) {
                 $('.page-content-area').ace_ajax('startLoading');
             },
             totalName: 'totalElements',
@@ -56,7 +65,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                 $("tbody").empty().html($("#tableTmpl").render(data.content));
                 $('[data-rel=tooltip]').tooltip();
             },
-            complete: function(XMLHttpRequest, textStatu){
+            complete: function (XMLHttpRequest, textStatu) {
                 $('.page-content-area').ace_ajax('stopLoading', true);
             }
         }

@@ -1,26 +1,15 @@
 package com.bogle.erp.config;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MimeMappings;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 
 import java.util.List;
 
@@ -46,48 +35,4 @@ public class WebConfigurer extends WebMvcConfigurerAdapter implements EmbeddedSe
         argumentResolvers.add(new SortHandlerMethodArgumentResolver());
         argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
     }
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.favorPathExtension(false).
-                favorParameter(true).
-                parameterName("mediaType").
-                ignoreAcceptHeader(false).
-                useJaf(false).
-                defaultContentType(MediaType.APPLICATION_JSON).
-                mediaType("xml", MediaType.APPLICATION_XML).
-                mediaType("json", MediaType.APPLICATION_JSON);
-    }
-
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
-        messageConverters.add(customJackson2HttpMessageConverter());
-        super.configureMessageConverters(messageConverters);
-    }
-
-//    @Bean
-//    public HttpMessageConverter<Object> createXmlHttpMessageConverter() {
-//        MarshallingHttpMessageConverter xmlConverter =
-//                new MarshallingHttpMessageConverter();
-//
-//        XStreamMarshaller xstreamMarshaller = new XStreamMarshaller();
-//        xstreamMarshaller.setAnnotatedClasses(Message.class);
-//
-//        xmlConverter.setMarshaller(xstreamMarshaller);
-//        xmlConverter.setUnmarshaller(xstreamMarshaller);
-//
-//        return xmlConverter;
-//    }
-
-    @Bean
-    public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
-        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        jsonConverter.setObjectMapper(objectMapper);
-        return jsonConverter;
-    }
-
-
 }

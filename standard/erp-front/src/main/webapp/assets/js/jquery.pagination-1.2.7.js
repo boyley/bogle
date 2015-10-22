@@ -55,7 +55,7 @@
         this.options = $.extend(true, {}, defaultOption, $.fn.page.defaults, options);
         this.total = this.options.total || 0;
         this.options.pageSizeItems = this.options.pageSizeItems || [5, 10, 15, 20],
-        this.currentPageIndex = 0;
+            this.currentPageIndex = 0;
         this.currentPageSize = this.options.pageSize;
         this.pageCount = getPageCount(this.total, this.currentPageSize);
 
@@ -87,17 +87,15 @@
             that.$element.append(that.$info.hide());
             that._remoteOrRedner(0);
             that.$element
-                .on('click', { page: that }, function (event) { eventHandler(event); })
-                .on('change', { page: that }, function (event) { eventHandler(event); });
+                .on('click', {page: that}, function (event) {
+                    eventHandler(event);
+                })
+                .on('change', {page: that}, function (event) {
+                    eventHandler(event);
+                });
         }
 
         var eventHandler = function (event) {
-
-            console.info('abc');
-
-            console.info(event);
-
-
             var that = event.data.page;
             var $target = $(event.target);
             if (event.type === 'click' && $target.data('pageIndex') !== undefined && !$target.parent().hasClass('active')) {
@@ -162,17 +160,21 @@
             }
             var requestParams = $.extend({}, this.options.remote.params, pageParams);
             requestParams = JSON.stringify(requestParams);
-            console.info(JSON.stringify(JSON.stringify(requestParams)));
+            console.info(JSON.stringify(requestParams));
             $.ajax({
                 url: this.options.remote.url,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
                 dataType: 'json',
                 data: requestParams,
-                method:'POST',
-                contentType: 'application/Json; charset=UTF-8',
+                method: 'POST',
+                contentType: 'application/json; charset=UTF-8',
                 async: false,
                 statusCode: {
-                    404: function() {
-                        alert("404 page not found" );
+                    404: function () {
+                        alert("404 page not found");
                     }
                 },
                 beforeSend: function (XMLHttpRequest) {
