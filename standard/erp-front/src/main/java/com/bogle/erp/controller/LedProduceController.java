@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 /**
  * Created by lenovo on 2015/10/3.
@@ -22,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class LedProduceController {
 
     private static final Logger log = LoggerFactory.getLogger(LedProduceController.class);
+
+    RequestResponseBodyMethodProcessor d;
+
 
     @Autowired
     private ProductService productService;
