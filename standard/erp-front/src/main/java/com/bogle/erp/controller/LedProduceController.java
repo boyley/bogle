@@ -1,5 +1,6 @@
 package com.bogle.erp.controller;
 
+import com.bogle.erp.controller.search.QueryProduce;
 import com.bogle.erp.controller.web.Api;
 import com.bogle.erp.entity.Product;
 import com.bogle.erp.service.ProductService;
@@ -14,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
+
+import java.util.Map;
 
 /**
  * Created by lenovo on 2015/10/3.
@@ -31,19 +34,12 @@ public class LedProduceController {
     private ProductService productService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Product> show(Pageable pageable) {
+    public Page<Product> show(Pageable pageable,QueryProduce queryProduce) {
+        log.info("map参数：{}",queryProduce);
         log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
         Page<Product> page = productService.findPager(pageable);
         return page;
     }
-
-
-//    @RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Page<Product> show(@RequestBody String json) {
-//        log.info(json);
-//        return null;
-//    }
-
 
     @RequestMapping(value = "/save", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public

@@ -57,6 +57,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             beforeSend: function (XMLHttpRequest) {
                 $('.page-content-area').ace_ajax('startLoading');
             },
+            params: { 'producer': "test" },
             totalName: 'totalElements',
             pageSizeName: 'size',
             pageIndexName: 'page',
