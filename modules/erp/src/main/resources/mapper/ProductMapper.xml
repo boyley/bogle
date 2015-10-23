@@ -30,14 +30,14 @@
         <include refid="Base_Column_List"/>
         from product
 
-        <trim prefix="where" suffix="" suffixOverrides="and">
-            <if test="producer != null" >
-                and producer like  '#{producer,jdbcType=VARCHAR}%'
+        <where>
+            <if test="producer != null">
+                and producer like '#{producer,jdbcType=VARCHAR}%'
             </if>
-            <if test="contact != null" >
+            <if test="contact != null">
                 and contact like '#{contact,jdbcType=VARCHAR}%'
             </if>
-        </trim>
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from product
