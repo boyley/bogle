@@ -18,8 +18,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Page<Product> findPager(Pageable pageable) {
-        return productRepository.findByPager(pageable);
+    public Page<Product> findPager(Pageable pageable, Product query) {
+        return productRepository.findByPager(pageable, query);
     }
 
     @Override

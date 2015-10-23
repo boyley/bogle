@@ -27,9 +27,6 @@ public class LedProduceController {
 
     private static final Logger log = LoggerFactory.getLogger(LedProduceController.class);
 
-    RequestResponseBodyMethodProcessor d;
-
-
     @Autowired
     private ProductService productService;
 
@@ -37,7 +34,7 @@ public class LedProduceController {
     public Page<Product> show(Pageable pageable,QueryProduce queryProduce) {
         log.info("map参数：{}",queryProduce);
         log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
-        Page<Product> page = productService.findPager(pageable);
+        Page<Product> page = productService.findPager(pageable,queryProduce);
         return page;
     }
 

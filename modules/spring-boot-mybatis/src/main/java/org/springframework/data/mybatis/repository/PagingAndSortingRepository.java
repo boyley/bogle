@@ -29,4 +29,13 @@ public interface PagingAndSortingRepository<T> {
      * @return
      */
     Page<T> findByPager(@Param(Contents.PAGE_PARAM) Pageable pageable, @Param(Contents.PAGE_PARAM_CONDITION) Map<String, ? extends Serializable> condition);
+
+    /**
+     * 条件查询
+     * @param pageable
+     * @param condition
+     * @param <Q>
+     * @return
+     */
+    <Q extends T> Page<T> findByPager(Pageable pageable, Q condition);
 }
