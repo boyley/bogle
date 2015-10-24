@@ -6,9 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mybatis.repository.plugin.interceptor.PageInterceptor;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,17 +80,8 @@ public abstract class SqlSessionRepositorySupport {
         return this.findByPager(pager, selectStatement, condition, null);
     }
 
-    protected <X> long calculateTotal(Pageable pager, List<X> result) {
-        if (pager.hasPrevious()) {
-            if (CollectionUtils.isEmpty(result)) return -1;
-            if (result.size() == pager.getPageSize()) return -1;
-            return (pager.getPageNumber() - 1) * pager.getPageSize() + result.size();
-        }
-        if (result.size() < pager.getPageSize()) return result.size();
-        return -1;
-    }
-
     protected <X, Y> Page<X> findByPager(Pageable pager, String selectStatement, Y condition, Map<String, Object> otherParams) {
+        PageInterceptor.PAGE_PARAM.set(pager);
         Map<String, Object> params = new HashMap<>();
         // params.put("pager", pager);
         params.put("offset", pager.getOffset());
@@ -99,13 +93,34 @@ public abstract class SqlSessionRepositorySupport {
             params.put("sorts", pager.getSort());
         }
         params.put("condition", condition);
+//        params.putAll(parseFields(condition,condition.getClass()));
 
         if (!CollectionUtils.isEmpty(otherParams)) {
             params.putAll(otherParams);
         }
         List<X> result = selectList(selectStatement, params);
-        long total = calculateTotal(pager, result);
+        PageInterceptor.PAGE_PARAM.remove();
+        Long total = PageInterceptor.PAGINATION_TOTAL.get();
+        PageInterceptor.PAGINATION_TOTAL.remove();
         return new PageImpl<X>(result, pager, total);
+    }
+
+    public Map<String, Object> parseFields(Object condition,Class clazz) {
+        Map<String, Object> params = new HashMap<>();
+        Class superClass = clazz.getSuperclass();
+        if (superClass != null) {
+            params.putAll(parseFields(condition,superClass));
+        }
+        Field[] fieldses = clazz.getDeclaredFields();
+        for (Field field : fieldses) {
+            field.setAccessible(true);
+            Object value = ReflectionUtils.getField(field, condition);
+            if (value != null) {
+                String name = field.getName();
+                params.put(name, value);
+            }
+        }
+        return params;
     }
 
     protected int insert(String statement) {

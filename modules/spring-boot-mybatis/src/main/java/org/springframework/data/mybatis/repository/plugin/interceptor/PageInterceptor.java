@@ -25,11 +25,11 @@ import java.util.Properties;
 /**
  * 分页拦截器
  */
-//@Intercepts({@Signature(type=StatementHandler.class,method="prepare",args={Connection.class})})
+@Intercepts({@Signature(type=StatementHandler.class,method="prepare",args={Connection.class})})
 public class PageInterceptor implements Interceptor {
 
     public static final ThreadLocal<Pageable> PAGE_PARAM = new ThreadLocal<>();
-    public static final ThreadLocal<Integer> PAGINATION_TOTAL = new ThreadLocal<>();
+    public static final ThreadLocal<Long> PAGINATION_TOTAL = new ThreadLocal<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -50,7 +50,7 @@ public class PageInterceptor implements Interceptor {
             parameterHandler.setParameters(countStatement);
             ResultSet rs = countStatement.executeQuery();
             if(rs.next()) {
-                PAGINATION_TOTAL.set(rs.getInt(1));
+                PAGINATION_TOTAL.set(rs.getLong(1));
             }
             // 排序
             Sort sort = pageable.getSort();

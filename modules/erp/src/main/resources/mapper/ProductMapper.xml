@@ -43,7 +43,6 @@
         select
         <include refid="Base_Column_List"/>
         from product
-
         <where>
             <if test="producer != null">
                 and producer like '#{producer,jdbcType=VARCHAR}%'

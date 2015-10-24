@@ -66,7 +66,7 @@ public class InfrastructureConfig {
         sessionFactory.setMapperLocations(getResources(resourceLoader, "classpath*:mapper/**/*.xml"));
 
         List<Interceptor> interceptors = new ArrayList<Interceptor>();
-//        interceptors.add(new PageInterceptor());
+        interceptors.add(new PageInterceptor());
         sessionFactory.setPlugins(interceptors.toArray(new Interceptor[]{}));
         return sessionFactory.getObject();
     }
