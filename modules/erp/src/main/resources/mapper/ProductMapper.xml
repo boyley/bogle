@@ -39,6 +39,20 @@
             </if>
         </where>
     </select>
+    <select id="selectByPager" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+
+        <where>
+            <if test="producer != null">
+                and producer like '#{producer,jdbcType=VARCHAR}%'
+            </if>
+            <if test="contact != null">
+                and contact like '#{contact,jdbcType=VARCHAR}%'
+            </if>
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from product
     where id = #{id,jdbcType=BIGINT}

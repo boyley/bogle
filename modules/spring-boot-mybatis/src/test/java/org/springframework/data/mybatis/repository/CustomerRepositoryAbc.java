@@ -44,7 +44,9 @@ public class CustomerRepositoryAbc {
     public void testFindPage() {
         Map<String, Serializable> map = new HashMap<>();
         map.put("firstName", "John");
-        Page<Customer> page = this.customerRepository.findByPager(new PageRequest(1, 10, Sort.Direction.ASC, "first_name", "last_name"));
+        Customer customer = new Customer();
+        customer.setFirstName("John");
+        Page<Customer> page = this.customerRepository.findAll(new PageRequest(0, 10, Sort.Direction.ASC, "first_name", "last_name"),customer);
         System.out.println(page);
     }
 

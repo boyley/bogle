@@ -72,6 +72,42 @@ public abstract class SqlSessionRepositorySupport {
         return getSqlSession().selectList(getStatement(statement), parameter);
     }
 
+
+    protected <X, Y> Page<X> findByPager(Pageable pager, String selectStatement, Y condition) {
+        return this.findByPager(pager, selectStatement, condition, null);
+    }
+
+    protected <X> long calculateTotal(Pageable pager, List<X> result) {
+        if (pager.hasPrevious()) {
+            if (CollectionUtils.isEmpty(result)) return -1;
+            if (result.size() == pager.getPageSize()) return -1;
+            return (pager.getPageNumber() - 1) * pager.getPageSize() + result.size();
+        }
+        if (result.size() < pager.getPageSize()) return result.size();
+        return -1;
+    }
+
+    protected <X, Y> Page<X> findByPager(Pageable pager, String selectStatement, Y condition, Map<String, Object> otherParams) {
+        Map<String, Object> params = new HashMap<>();
+        // params.put("pager", pager);
+        params.put("offset", pager.getOffset());
+        params.put("pageSize", pager.getPageSize());
+        params.put("offsetEnd", pager.getOffset() + pager.getPageSize());
+        if (condition instanceof Sort) {
+            params.put("sorts", condition);
+        } else {
+            params.put("sorts", pager.getSort());
+        }
+        params.put("condition", condition);
+
+        if (!CollectionUtils.isEmpty(otherParams)) {
+            params.putAll(otherParams);
+        }
+        List<X> result = selectList(selectStatement, params);
+        long total = calculateTotal(pager, result);
+        return new PageImpl<X>(result, pager, total);
+    }
+
     protected int insert(String statement) {
         return getSqlSession().insert(getStatement(statement));
     }

@@ -39,9 +39,9 @@ public class MybatisRepositoryQuery extends MapperMethod implements RepositoryQu
 
     @Override
     public Object execute(Object[] parameters) {
-        if (queryMethod.getMethod().getReturnType() == Page.class) {
-            return executeForMany(sessionTemplate, parameters);
-        }
+//        if (queryMethod.getMethod().getReturnType() == Page.class) {
+//            return executeForMany(sessionTemplate, parameters);
+//        }
         return ReflectionUtils
                 .invokeMethod(queryMethod.getMethod(), sessionTemplate.getMapper(queryMethod.getRepositoryInterface()), parameters);
     }

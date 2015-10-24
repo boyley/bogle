@@ -3,6 +3,8 @@ package org.springframework.data.mybatis.domain;
 import java.util.List;
 
 public class Customer extends AbstractEntity {
+
+
 	private String firstName;
 	private String lastName;
 	private EmailAddress emailAddress;

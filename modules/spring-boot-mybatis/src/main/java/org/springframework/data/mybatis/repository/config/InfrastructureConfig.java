@@ -41,12 +41,12 @@ import java.util.List;
 @ConditionalOnProperty(prefix = "spring.mybatis", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class InfrastructureConfig {
 
-    @Bean(initMethod = "init", destroyMethod = "close")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.dataSource")
-    public DataSource dataSource() {
-        return new DruidDataSource();
-    }
+//    @Bean(initMethod = "init", destroyMethod = "close")
+//    @Primary
+//    @ConfigurationProperties(prefix = "spring.dataSource")
+//    public DataSource dataSource() {
+//        return new DruidDataSource();
+//    }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(@Value("${spring.mybatis.mapper:*}") String basePackage) {
@@ -66,7 +66,7 @@ public class InfrastructureConfig {
         sessionFactory.setMapperLocations(getResources(resourceLoader, "classpath*:mapper/**/*.xml"));
 
         List<Interceptor> interceptors = new ArrayList<Interceptor>();
-        interceptors.add(new PageInterceptor());
+//        interceptors.add(new PageInterceptor());
         sessionFactory.setPlugins(interceptors.toArray(new Interceptor[]{}));
         return sessionFactory.getObject();
     }

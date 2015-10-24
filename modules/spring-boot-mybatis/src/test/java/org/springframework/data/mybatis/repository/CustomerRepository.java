@@ -9,7 +9,7 @@ import java.util.List;
  * Mapping and queries defined in mapper/Customer/Customer.xml
  * except org.springframework.data.mybatis.repository.CustomerRepository#findByLastName(java.lang.String)
  */
-public interface CustomerRepository extends MyBatisRepository<Customer, Integer> , PagingAndSortingRepository<Customer>{
+public interface CustomerRepository extends MyBatisRepository<Customer, Integer>{
 
     List<Customer> findByFirstName(String firstName);
 

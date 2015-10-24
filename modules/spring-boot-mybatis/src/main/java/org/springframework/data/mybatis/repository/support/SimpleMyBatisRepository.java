@@ -21,6 +21,8 @@ import java.util.Map;
  */
 public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSessionRepositorySupport implements MyBatisRepository<T, ID> {
 
+    private static final String SELECT_BY_PAGER = "selectByPager";
+
     private final RepositoryMetadata repositoryMetadata;
     private final EntityInformation<T, ID> entityInformation;
 
@@ -111,5 +113,37 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
     @Override
     protected String getNamespace() {
         return repositoryMetadata.getRepositoryInterface().getCanonicalName();
+    }
+
+    @Override
+    public <X extends T> Page<T> findAll(Pageable pageable, X condition) {
+        return findByPager(pageable, SELECT_BY_PAGER, condition);
+    }
+
+    @Override
+    public <X extends T> Iterable<T> findAll(X condition) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("condition", condition);
+        return selectList(SELECT_BY_PAGER, params);
+    }
+
+    @Override
+    public <X extends T> Iterable<T> findAll(Sort sort, X condition) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("condition", condition);
+        params.put("sorts", sort);
+        return selectList(SELECT_BY_PAGER, params);
+    }
+
+    @Override
+    public Iterable<T> findAll(Sort sort) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("sorts", sort);
+        return selectList(SELECT_BY_PAGER, params);
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable) {
+        return findAll(pageable, null);
     }
 }
