@@ -79,7 +79,7 @@
                 </th>
                 <th>
                     <i class="ace-icon fa fa-money bigger-110 hidden-480"></i>
-                    价格
+                    价格(单位:元)
                 </th>
                 <th></th>
             </tr>
@@ -95,7 +95,7 @@
                 <td th:text="${item.colourTemperature}">色温</td>
                 <td th:text="${item.bri}">亮度</td>
                 <td th:text="${item.createTime}">创建时间</td>
-                <td th:text="${item.price}">价格</td>
+                <td th:text="${item.price}">价格(单位:元)</td>
                 <td>
                     <div class="hidden-sm hidden-xs action-buttons">
                         <a class="blue tooltip-info" data-rel="tooltip" title="查看" href="#">
@@ -251,7 +251,7 @@
                 </th>
                 <th>
                     <i class="ace-icon fa fa-money bigger-110 hidden-480"></i>
-                    价格
+                    价格(单位:元)
                 </th>
                 <th></th>
             </tr>
@@ -283,7 +283,7 @@
          <td>{{:bri}}</td>
          <td>{{:createTime}}</td>
          <td>
-             <span class="badge badge-danger">{{:price}}</span>
+             {{:price}}
          </td>
          <td>
              <div class="hidden-sm hidden-xs action-buttons">
