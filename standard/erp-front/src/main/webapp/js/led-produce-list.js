@@ -5,6 +5,7 @@ var scripts = [
     "../../assets/js/bootbox.js",
     "../../assets/js/spin.js",
     "../../assets/js/jsrender.js",
+    "../../assets/js/jquery.serializeObject.js",
     "../../assets/js/jquery.pagination-1.2.7.js",
     null]
 $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
@@ -53,6 +54,9 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         pageSizeItems: [20, 30, 50, 100],
         infoFormat: '{start} ~ {end}条，共{total}条',
         remote: {
+            params: function () {
+                return $('.form-search').data('query');
+            },
             url: '/led/list',
             beforeSend: function (XMLHttpRequest) {
                 $('.page-content-area').ace_ajax('startLoading');
@@ -75,6 +79,13 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         $("#eventLog").append('EventName = jumpClicked , pageIndex = ' + pageIndex + '<br />');
     }).on('pageSizeChanged', function (event, pageSize) {
         $("#eventLog").append('EventName = pageSizeChanged , pageSize = ' + pageSize + '<br />');
+    });
+
+    $('.form-search[role="form"]').submit(function () {
+        console.info('button click')
+        console.info($('.form-search').serialize());
+        $("#pagination").page('remote',$('.form-search').serializeObject());
+        return false;
     });
 });
 

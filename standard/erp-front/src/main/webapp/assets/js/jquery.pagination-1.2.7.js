@@ -30,7 +30,6 @@
             loadFirstPage: true,
             remote: {
                 url: null,
-                form:'form.form-search',
                 params: null,
                 callback: null,
                 success: null,
@@ -139,6 +138,7 @@
                 this.renderPagination(pageIndex);
         },
         remote: function (pageIndex, params) {
+            console.info("remote");
             var that = this;
             if (isNaN(parseInt(pageIndex)) || typeof pageIndex === "object") {
                 params = pageIndex;
@@ -153,9 +153,10 @@
             this.options.remote.params = deserializeParams(this.options.remote.params);
             if (params) {
                 params = deserializeParams(params);
-                this.options.remote.params = $.extend({}, this.options.remote.params, params);
+                //this.options.remote.params = $.extend({}, this.options.remote.params, params);
+                this.options.remote.params = params;
             }
-            var requestParams = $.extend({}, this.options.remote.params, pageParams,this.serializeObject(this.options.remote.form));
+            var requestParams = $.extend({}, this.options.remote.params, pageParams);
             $.ajax({
                 url: this.options.remote.url,
                 dataType: 'json',
@@ -215,31 +216,7 @@
                 message && console.info(message);
                 data && console.info(data);
             }
-        },
-        serializeObject:function(form) {
-
-            var result = {};
-            var extend = function (i, element) {
-                var node = result[element.name];
-
-                // If node with same name exists already, need to convert it to an array as it
-                // is a multi-value field (i.e., checkboxes)
-
-                if ('undefined' !== typeof node && node !== null) {
-                    if ($.isArray(node)) {
-                        node.push(element.value);
-                    } else {
-                        result[element.name] = [node, element.value];
-                    }
-                } else {
-                    result[element.name] = element.value;
-                }
-            };
-
-            $.each($(form).serializeArray(), extend);
-            return result;
         }
-
     }
 
     var renderInfo = function (currentPageIndex, currentPageSize, total, infoFormat) {
