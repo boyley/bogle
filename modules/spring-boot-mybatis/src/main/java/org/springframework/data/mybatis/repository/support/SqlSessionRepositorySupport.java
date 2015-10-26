@@ -83,18 +83,8 @@ public abstract class SqlSessionRepositorySupport {
     protected <X, Y> Page<X> findByPager(Pageable pager, String selectStatement, Y condition, Map<String, Object> otherParams) {
         PageInterceptor.PAGE_PARAM.set(pager);
         Map<String, Object> params = new HashMap<>();
-        // params.put("pager", pager);
-        params.put("offset", pager.getOffset());
-        params.put("pageSize", pager.getPageSize());
-        params.put("offsetEnd", pager.getOffset() + pager.getPageSize());
-        if (condition instanceof Sort) {
-            params.put("sorts", condition);
-        } else {
-            params.put("sorts", pager.getSort());
-        }
         params.put("condition", condition);
-//        params.putAll(parseFields(condition,condition.getClass()));
-
+        params.putAll(parseFields(condition,condition.getClass()));
         if (!CollectionUtils.isEmpty(otherParams)) {
             params.putAll(otherParams);
         }

@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mybatis.repository.MyBatisRepository;
 import org.springframework.data.repository.core.EntityInformation;
-import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.util.Assert;
 
@@ -21,7 +20,7 @@ import java.util.Map;
  */
 public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSessionRepositorySupport implements MyBatisRepository<T, ID> {
 
-    private static final String SELECT_BY_PAGER = "selectByPager";
+    private static final String FIND = "find";
 
     private final RepositoryMetadata repositoryMetadata;
     private final EntityInformation<T, ID> entityInformation;
@@ -117,14 +116,14 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
 
     @Override
     public <X extends T> Page<T> findAll(Pageable pageable, X condition) {
-        return findByPager(pageable, SELECT_BY_PAGER, condition);
+        return findByPager(pageable, FIND, condition);
     }
 
     @Override
     public <X extends T> Iterable<T> findAll(X condition) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("condition", condition);
-        return selectList(SELECT_BY_PAGER, params);
+        return selectList(FIND, params);
     }
 
     @Override
@@ -132,14 +131,14 @@ public class SimpleMyBatisRepository<T, ID extends Serializable> extends SqlSess
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("condition", condition);
         params.put("sorts", sort);
-        return selectList(SELECT_BY_PAGER, params);
+        return selectList(FIND, params);
     }
 
     @Override
     public Iterable<T> findAll(Sort sort) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sorts", sort);
-        return selectList(SELECT_BY_PAGER, params);
+        return selectList(FIND, params);
     }
 
     @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.springframework.data.mybatis.repository.CustomerRepository">
 
@@ -33,53 +33,11 @@
 		<if test="pk">
 			AND customer.id = #{pk.value}
 		</if>
+		<if test="firstName">
+			AND customer.first_name = #{firstName}
+		</if>
 	</select>
 
-	<select id="findByPager" resultMap="customerResultMap">
-		SELECT customer.id id,
-		customer.first_name first_name,
-		customer.last_name last_name,
-		customer.email_address email_adress,
-		address.id address_id,
-		address.street address_street,
-		address.city
-		address_city,
-		address.country address_country
-		FROM
-		customer, address
-		WHERE customer.id = address.customer_id
-	</select>
-
-	<select id="selectByPager" resultMap="customerResultMap">
-		SELECT customer.id id,
-		customer.first_name first_name,
-		customer.last_name last_name,
-		customer.email_address email_adress,
-		address.id address_id,
-		address.street address_street,
-		address.city
-		address_city,
-		address.country address_country
-		FROM
-		customer, address
-		WHERE customer.id = address.customer_id
-	</select>
-
-	<select id="findAll" resultMap="customerResultMap">
-		SELECT customer.id id,
-		customer.first_name first_name,
-		customer.last_name last_name,
-		customer.email_address email_adress,
-		address.id address_id,
-		address.street address_street,
-		address.city
-		address_city,
-		address.country address_country
-		FROM
-		customer, address
-		WHERE customer.id = address.customer_id
-	</select>
-	
 	<select id="findByFirstName" resultMap="customerResultMap" parameterType="string">
 		SELECT customer.id id,
 		customer.first_name first_name,
