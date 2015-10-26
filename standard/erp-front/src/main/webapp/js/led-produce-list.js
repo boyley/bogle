@@ -27,7 +27,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                     console.info('xxx');
                     $.ajax('/led/remove',
                         {
-                            contentType: 'application/Json',
+                            contentType: 'application/json; charset=utf-8',
                             data: JSON.stringify([1, 2, 3]),
                             dataType: "json",
                             type: "post"
