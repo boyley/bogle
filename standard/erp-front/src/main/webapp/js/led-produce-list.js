@@ -84,7 +84,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     $('.form-search[role="form"]').submit(function () {
         console.info('button click')
         console.info($('.form-search').serialize());
-        $("#pagination").page('remote',$('.form-search').serializeObject());
+        $("#pagination").page('remote', 0, $('.form-search').serializeObject());
         return false;
     });
 });

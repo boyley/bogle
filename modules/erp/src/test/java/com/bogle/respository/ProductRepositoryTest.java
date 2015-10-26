@@ -36,7 +36,8 @@ public class ProductRepositoryTest {
     @Test
     public void testFindPage() {
         Product product = new Product();
-        product.setProducer("producer-2");
+//        product.setProducer("producer-2");
+        product.setContact("a");
         Page<Product> page = productRepository.findAll(new PageRequest(0,20),product);
         logger.info(JSON.toJSONString(page));
     }
