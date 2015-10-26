@@ -66,7 +66,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             pageIndexName: 'page',
             success: function (data, pageIndex) {
                 $(".m-pagination-group input[type='text']").css({'padding': '0px'});
-                $("tbody").empty().html($("#tableTmpl").render(data.content));
+                $("#dynamic-table tbody").empty().html($("#tableTmpl").render(data.content));
                 $('[data-rel=tooltip]').tooltip();
             },
             complete: function (XMLHttpRequest, textStatu) {
@@ -82,8 +82,6 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     });
 
     $('.form-search[role="form"]').submit(function () {
-        console.info('button click')
-        console.info($('.form-search').serialize());
         $("#pagination").page('remote', 0, $('.form-search').serializeObject());
         return false;
     });
