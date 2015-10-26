@@ -41,12 +41,16 @@ import java.util.List;
 @ConditionalOnProperty(prefix = "spring.mybatis", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class InfrastructureConfig {
 
-//    @Bean(initMethod = "init", destroyMethod = "close")
-//    @Primary
-//    @ConfigurationProperties(prefix = "spring.dataSource")
-//    public DataSource dataSource() {
-//        return new DruidDataSource();
-//    }
+    @Bean(initMethod = "init", destroyMethod = "close")
+    @Primary
+    @ConfigurationProperties(prefix = "spring.dataSource")
+    public DataSource dataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/erp");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        return dataSource;
+    }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(@Value("${spring.mybatis.mapper:*}") String basePackage) {
