@@ -138,7 +138,6 @@
                 this.renderPagination(pageIndex);
         },
         remote: function (pageIndex, params) {
-            console.info("remote");
             var that = this;
             if (isNaN(parseInt(pageIndex)) || typeof pageIndex === "object") {
                 params = pageIndex;

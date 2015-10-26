@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +47,15 @@ public class LedProduceController {
         product = this.productService.save(product);
         Api<Product> api = new Api<>(!product.isNew(), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), product);
         return api;
+    }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Api<Product> remove(Long[] ids) {
+        log.info("remove.................");
+        log.info("ids:{}",ids);
+        return null;
     }
 
     @RequestMapping(value = "/edit")

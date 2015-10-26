@@ -27,7 +27,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                     console.info('xxx');
                     $.ajax('/led/remove',
                         {
-                            data: {ids: [1, 2, 3]},
+                            data: $.toJSON({ids: [1, 2, 3]}),
                             dataType: "json",
                             type: "post"
                         })
