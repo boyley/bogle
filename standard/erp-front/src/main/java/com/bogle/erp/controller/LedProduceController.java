@@ -60,4 +60,10 @@ public class LedProduceController {
         return new Api(product != null, product != null ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value(), product != null ? HttpStatus.OK.getReasonPhrase() : HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), product);
     }
 
+
+    @RequestMapping(value = "/publish")
+    public ModelAndView publish() {
+        ModelAndView modelAndView = new ModelAndView("admin/led/led-produce-edit");
+        return modelAndView;
+    }
 }
