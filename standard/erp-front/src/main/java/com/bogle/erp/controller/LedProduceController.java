@@ -30,7 +30,6 @@ public class LedProduceController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<Product> list(Pageable pageable, QueryProduce queryProduce) {
-        queryProduce.setRemove(false);
         Page<Product> page = productService.findPager(pageable, queryProduce);
         return page;
     }
@@ -54,12 +53,4 @@ public class LedProduceController {
         Api<List<Product>> api = new Api<>(count > 0, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), products);
         return api;
     }
-
-    @RequestMapping(value = "/edit")
-    public ModelAndView edit() {
-        ModelAndView modelAndView = new ModelAndView("led-produce-edit");
-        return modelAndView;
-    }
-
-
 }
