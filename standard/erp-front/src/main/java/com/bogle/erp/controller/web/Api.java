@@ -33,6 +33,17 @@ public class Api<T> {
         this.msg = msg;
     }
 
+    public Api(boolean success,int code, T data) {
+        this.code = code;
+        this.data = data;
+        this.success = success;
+    }
+
+    public Api(boolean success, T data) {
+        this.success = success;
+        this.data = data;
+    }
+
     public Api(boolean success, int code, String msg, T data) {
         this.success = success;
         this.msg = msg;

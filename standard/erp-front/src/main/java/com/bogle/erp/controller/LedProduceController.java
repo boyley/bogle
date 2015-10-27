@@ -50,14 +50,17 @@ public class LedProduceController {
     Api<List<Product>> remove(@RequestBody List<Product> products) {
         log.info("remove.................");
         int count = this.productService.remove(products);
-        Api<List<Product>> api = new Api<>(count > 0, count > 0 ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.OK.getReasonPhrase(), products);
+        Api<List<Product>> api = new Api<>(count > 0, count > 0 ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value(), products);
         return api;
     }
 
     @RequestMapping(value = "/edit")
-    public Api<Product> edit(@RequestBody Product product) {
-        product = this.productService.selectByPrimaryKey(product.getId());
-        return new Api(product != null, product != null ? HttpStatus.OK.value() : HttpStatus.INTERNAL_SERVER_ERROR.value(), product != null ? HttpStatus.OK.getReasonPhrase() : HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), product);
+    public ModelAndView edit(Long id) {
+        ModelAndView modelAndView = new ModelAndView("admin/led/led-produce-edit");
+        Product product = this.productService.selectByPrimaryKey(id);
+        Api<Product> data = new Api<>(product != null,product);
+        modelAndView.addObject(data);
+        return modelAndView;
     }
 
 

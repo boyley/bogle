@@ -16,7 +16,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             var target = $(this);
             bootbox.confirm("<h1>确定修改吗?</h1>", function (result) {
                 if (result) {
-                    var url = '#page/admin/led/led-produce-edit.html?id=' + target.attr('identity');
+                    var url = '#led/edit?id=' + target.attr('identity');
                     $('.page-content-area[data-ajax-content=true]').ace_ajax('loadUrl', url);
                     window.location.href = url;
                 }
