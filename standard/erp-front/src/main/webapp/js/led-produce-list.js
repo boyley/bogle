@@ -25,8 +25,8 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             var target = $(this);
             bootbox.confirm("<h1>确定删除吗?</h1>", function (result) {
                 if (result) {
-                    console.info('xxx');
-                    var products = [{id: target.attr('identity'),remove:true}];
+                    $('.page-content-area').ace_ajax('startLoading');
+                    var products = [{id: target.attr('identity'), remove: true}];
                     $.ajax('/led/remove',
                         {
                             contentType: 'application/json; charset=utf-8',
@@ -35,7 +35,16 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                             type: "post"
                         })
                         .success(function (result) {
-                            console.info(result);
+                            $.gritter.add({
+                                title: '删除提示',
+                                text: result.success ? '删除成功' : '删除失败',
+                                class_name: 'gritter-center '+ (result.success ? 'gritter-success' : 'gritter-error'),
+                                time: 900
+                            });
+                            var currentPageIndex = $("#pagination").data().page.currentPageIndex;
+                            $("#pagination").page('remote', currentPageIndex);
+                        }).complete(function (jqXHR, textStatus) {
+                            $('.page-content-area').ace_ajax('stopLoading', true);
                         });
                 }
             });
@@ -57,6 +66,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         pageSizeItems: [20, 30, 50, 100],
         infoFormat: '{start} ~ {end}条，共{total}条',
         remote: {
+            sort:'sort=id,desc',
             params: function () {
                 return $('.form-search').data('query');
             },

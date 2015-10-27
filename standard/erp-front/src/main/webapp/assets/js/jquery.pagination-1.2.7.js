@@ -31,6 +31,7 @@
             remote: {
                 url: null,
                 params: null,
+                sort: {},
                 callback: null,
                 success: null,
                 beforeSend: null,
@@ -55,7 +56,7 @@
         this.options = $.extend(true, {}, defaultOption, $.fn.page.defaults, options);
         this.total = this.options.total || 0;
         this.options.pageSizeItems = this.options.pageSizeItems || [5, 10, 15, 20],
-        this.currentPageIndex = 0;
+            this.currentPageIndex = 0;
         this.currentPageSize = this.options.pageSize;
         this.pageCount = getPageCount(this.total, this.currentPageSize);
 
@@ -87,8 +88,12 @@
             that.$element.append(that.$info.hide());
             that._remoteOrRedner(0);
             that.$element
-                .on('click', { page: that }, function (event) { eventHandler(event); })
-                .on('change', { page: that }, function (event) { eventHandler(event); });
+                .on('click', {page: that}, function (event) {
+                    eventHandler(event);
+                })
+                .on('change', {page: that}, function (event) {
+                    eventHandler(event);
+                });
         }
 
         var eventHandler = function (event) {
@@ -150,12 +155,14 @@
             pageParams[this.options.remote.pageIndexName] = pageIndex;
             pageParams[this.options.remote.pageSizeName] = this.currentPageSize;
             this.options.remote.params = deserializeParams(this.options.remote.params);
+            var sort = deserializeParams(this.options.remote.sort);
             if (params) {
                 params = deserializeParams(params);
                 //this.options.remote.params = $.extend({}, this.options.remote.params, params);
                 this.options.remote.params = params;
             }
-            var requestParams = $.extend({}, this.options.remote.params, pageParams);
+            var requestParams = $.extend({}, this.options.remote.params, pageParams, sort);
+            console.info(requestParams);
             $.ajax({
                 url: this.options.remote.url,
                 dataType: 'json',

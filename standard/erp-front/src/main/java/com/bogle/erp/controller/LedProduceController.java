@@ -8,16 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by lenovo on 2015/10/3.
@@ -33,8 +30,7 @@ public class LedProduceController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<Product> list(Pageable pageable, QueryProduce queryProduce) {
-        log.info("map参数：{}", queryProduce);
-        log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
+        queryProduce.setRemove(false);
         Page<Product> page = productService.findPager(pageable, queryProduce);
         return page;
     }
@@ -52,10 +48,11 @@ public class LedProduceController {
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public
     @ResponseBody
-    Api<Product> remove(@RequestBody List<Product> products) {
+    Api<List<Product>> remove(@RequestBody List<Product> products) {
         log.info("remove.................");
         int count = this.productService.remove(products);
-        return null;
+        Api<List<Product>> api = new Api<>(count > 0, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), products);
+        return api;
     }
 
     @RequestMapping(value = "/edit")

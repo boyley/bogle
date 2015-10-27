@@ -40,6 +40,9 @@
             <if test="typ != null">
                 and typ like '%${typ}%'
             </if>
+            <if test="remove != null">
+                and remove = ${remove}
+            </if>
         </where>
     </select>
 
@@ -83,6 +86,9 @@
             <if test="note != null">
                 note,
             </if>
+            <if test="remove != null">
+                remove,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="producer != null">
@@ -117,6 +123,9 @@
             </if>
             <if test="note != null">
                 #{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="remove != null">
+                #{remove,jdbcType=BIT },
             </if>
         </trim>
     </insert>

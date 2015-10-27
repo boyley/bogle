@@ -31,7 +31,7 @@ public class Product implements Persistable<Long> {
 
     private String note;
 
-    private Boolean remove;
+    private Boolean remove = Boolean.FALSE;
 
     public Long getId() {
         return id;
