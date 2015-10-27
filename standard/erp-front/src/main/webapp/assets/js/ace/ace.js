@@ -111,7 +111,14 @@ jQuery(function ($) {
                 //for example in Ace HTML demo version we convert /ajax/index.html#page/gallery to > /ajax/content/gallery.html and load it
                 //if(path.match(/(\/ajax\/)(index\.html)?/))
                 //	return path.replace(/(\/ajax\/)(index\.html)?/, hash.replace(/^page\//, '')+'.html') ;
-                return path + hash.replace(/\.html/, '') + ".html";
+                var url = hash;
+                var search = '';
+                if(hash.lastIndexOf("?") > 1) {
+                    url = hash.substring(0,hash.lastIndexOf("?"));
+                    search = hash.substring(hash.lastIndexOf('?'),hash.length);
+                }
+
+                return path + url.replace(/\.html/, '') + ".html" + search;
                 //for example in Ace PHP demo version we convert "ajax.php#page/dashboard" to "ajax.php?page=dashboard" and load it
                 //return path + "?" + hash.replace(/\//, "=");
             }

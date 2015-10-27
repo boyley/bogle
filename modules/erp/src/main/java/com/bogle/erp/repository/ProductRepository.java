@@ -12,8 +12,8 @@ public interface ProductRepository extends MyBatisRepository<Product, Long> {
 //
 //    int insertSelective(Product record);
 //
-//    Product selectByPrimaryKey(Long id);
-//
+    Product selectByPrimaryKey(Long id);
+
     int updateByPrimaryKeysSelective(List<Product> products);
 //
 //    int updateByPrimaryKey(Product record);

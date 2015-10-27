@@ -162,7 +162,6 @@
                 this.options.remote.params = params;
             }
             var requestParams = $.extend({}, this.options.remote.params, pageParams, sort);
-            console.info(requestParams);
             $.ajax({
                 url: this.options.remote.url,
                 dataType: 'json',

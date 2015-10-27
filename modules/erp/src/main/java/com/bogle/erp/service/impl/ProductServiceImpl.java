@@ -36,4 +36,9 @@ public class ProductServiceImpl implements ProductService {
         }
         return productRepository.updateByPrimaryKeysSelective(products);
     }
+
+    @Override
+    public Product selectByPrimaryKey(Long id) {
+        return this.productRepository.selectByPrimaryKey(id);
+    }
 }

@@ -190,6 +190,27 @@
         {url: "../../assets/js/jquery.iframe-post-form.js", cache: false},
         null]
     $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
+        var id = getParameterByName("id");
+        if (id != null) {
+            $.ajax('/led/edit',
+                    {
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({id: id}),
+                        dataType: "json",
+                        type: "post",
+                        beforeSend: function() {
+                            console.info('beforeSend');
+                            $('.page-content-area').ace_ajax('startLoading');
+                        }
+                    }).success(function (result) {
+                        console.info('success');
+                    }).complete(function (jqXHR, textStatus) {
+                        console.info('complete');
+//                        $('.page-content-area').ace_ajax('stopLoading', true);
+                    });
+        }
+
+
         $('form[role="form"]').iframePostForm({
             json: true,
             post: function () {
@@ -227,4 +248,22 @@
             }
         })
     });
+
+    function getParameterByName(variable) {
+        var href = window.location.href;
+        var query = href;
+        var lastIndex = window.location.href.lastIndexOf("?");
+        if (lastIndex > 0) {
+            query = href.substring(lastIndex + 1, href.length);
+            console.info(query)
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+        }
+        return null;
+    }
 </script>

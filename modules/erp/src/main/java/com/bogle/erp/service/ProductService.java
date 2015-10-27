@@ -28,4 +28,11 @@ public interface ProductService {
      * @return
      */
     int remove(final List<Product> products);
+
+    /**
+     * 根据id查询对象
+     * @param id
+     * @return
+     */
+    Product selectByPrimaryKey(Long id);
 }
