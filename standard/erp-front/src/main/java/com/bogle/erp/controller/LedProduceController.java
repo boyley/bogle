@@ -32,7 +32,7 @@ public class LedProduceController {
     private ProductService productService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<Product> show(Pageable pageable, QueryProduce queryProduce) {
+    public Page<Product> list(Pageable pageable, QueryProduce queryProduce) {
         log.info("map参数：{}", queryProduce);
         log.info("size:" + pageable.getPageSize() + ",number:" + pageable.getPageNumber());
         Page<Product> page = productService.findPager(pageable, queryProduce);
@@ -52,9 +52,9 @@ public class LedProduceController {
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public
     @ResponseBody
-    Api<Product> remove(@RequestBody Long[] ids) {
+    Api<Product> remove(@RequestBody List<Product> products) {
         log.info("remove.................");
-        log.info("ids:{}", ids);
+        int count = this.productService.remove(products);
         return null;
     }
 

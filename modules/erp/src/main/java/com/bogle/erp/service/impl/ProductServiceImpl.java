@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2015/10/11.
  */
@@ -25,5 +27,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    public int remove(List<Product> products) {
+        if (products.size() <= 0) {
+            return 0;
+        }
+        return productRepository.updateByPrimaryKeysSelective(products);
     }
 }

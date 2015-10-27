@@ -39,7 +39,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
 
     @Override
     protected Class<?> getRepositoryBaseClass(RepositoryMetadata repositoryMetadata) {
-        return MyBatisRepository.class;
+        return SimpleMyBatisRepository.class;
     }
 
     @SuppressWarnings("rawtypes")

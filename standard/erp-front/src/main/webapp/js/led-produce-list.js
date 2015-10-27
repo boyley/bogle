@@ -22,13 +22,15 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         });
 
         $("table tbody").on(ace.click_event, '.bootbox-confirm-delete', function () {
+            var target = $(this);
             bootbox.confirm("<h1>确定删除吗?</h1>", function (result) {
                 if (result) {
                     console.info('xxx');
+                    var products = [{id: target.attr('identity'),remove:true}];
                     $.ajax('/led/remove',
                         {
                             contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify([1, 2, 3]),
+                            data: JSON.stringify(products),
                             dataType: "json",
                             type: "post"
                         })

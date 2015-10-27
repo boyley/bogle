@@ -31,6 +31,8 @@ public class Product implements Persistable<Long> {
 
     private String note;
 
+    private Boolean remove;
+
     public Long getId() {
         return id;
     }
@@ -130,5 +132,13 @@ public class Product implements Persistable<Long> {
 
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
+    }
+
+    public Boolean getRemove() {
+        return remove;
+    }
+
+    public void setRemove(Boolean remove) {
+        this.remove = remove;
     }
 }
