@@ -14,11 +14,12 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             $('.page-content-area').ace_ajax('startLoading');
         },
         complete: function (response) {
+            console.info(response);
             $('.page-content-area').ace_ajax('stopLoading', true);
             if (response.success) {
                 bootbox.dialog({
                     closeButton: false,
-                    message: "<h5 class='bigger-110'>添加成功</h5>",
+                    message: "<h5 class='bigger-110'>" + response.msg + "</h5>",
                     buttons: {
                         "proceed": {
                             "label": "<i class='ace-icon fa fa-check'></i> 继续添加",

@@ -39,8 +39,9 @@ public class LedProduceController {
     @ResponseBody
     Api<Product> add(Product product) {
         log.info("save.................");
+        String message = product.isNew() ? "添加成功" : "修改成功";
         product = this.productService.save(product);
-        Api<Product> api = new Api<>(!product.isNew(), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), product);
+        Api<Product> api = new Api<>(!product.isNew(), message, product);
         return api;
     }
 
@@ -58,8 +59,7 @@ public class LedProduceController {
     public ModelAndView edit(Long id) {
         ModelAndView modelAndView = new ModelAndView("admin/led/led-produce-edit");
         Product product = this.productService.selectByPrimaryKey(id);
-        Api<Product> data = new Api<>(product != null,product);
-        modelAndView.addObject(data);
+        modelAndView.addObject(product);
         return modelAndView;
     }
 

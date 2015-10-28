@@ -42,7 +42,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                                 title: '删除提示',
                                 text: result.success ? '删除成功' : '删除失败',
                                 class_name: 'gritter-center '+ (result.success ? 'gritter-success' : 'gritter-error'),
-                                time: 900
+                                time: 700
                             });
                             var currentPageIndex = $("#pagination").data().page.currentPageIndex;
                             $("#pagination").page('remote', currentPageIndex);

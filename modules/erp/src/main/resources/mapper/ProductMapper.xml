@@ -50,6 +50,7 @@
     delete from product
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
     <insert id="insert" parameterType="com.bogle.erp.entity.Product" useGeneratedKeys="true" keyProperty="id">
         insert into product
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -129,7 +130,48 @@
             </if>
         </trim>
     </insert>
-
+    <update id="update" parameterType="com.bogle.erp.entity.Product" useGeneratedKeys="true" keyProperty="id">
+        update product
+        <set>
+            <if test="producer != null">
+                producer=#{producer,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null">
+                contact=#{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone=#{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email=#{email,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="typ != null">
+                typ=#{typ,jdbcType=VARCHAR},
+            </if>
+            <if test="colourTemperature != null">
+                colour_temperature=#{colourTemperature,jdbcType=VARCHAR},
+            </if>
+            <if test="bri != null">
+                bri=#{bri,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price=#{price,jdbcType=DOUBLE},
+            </if>
+            <if test="note != null">
+                note=#{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="remove != null">
+                remove=#{remove,jdbcType=BIT },
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
     <update id="updateByPrimaryKeysSelective" parameterType="list">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
             update product

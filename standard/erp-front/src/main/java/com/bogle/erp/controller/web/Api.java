@@ -27,6 +27,12 @@ public class Api<T> {
         this.msg = msg;
     }
 
+    public Api(boolean success, String msg, T data) {
+        this.success = success;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public Api(boolean success, int code, String msg) {
         this.success = success;
         this.code = code;
