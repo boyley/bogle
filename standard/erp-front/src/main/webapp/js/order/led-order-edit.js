@@ -83,6 +83,9 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         if(isNaN(price)) {
             price = 0;
         }
+        $('div.form-group input[name="allPrice"]').val(number * price);
+        $('div.form-group input[name="allSale"]').val(number * sale);
+        $('div.form-group input[name="profit"]').val(number * sale - number * price);
 
     }
 });
