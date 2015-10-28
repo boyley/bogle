@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="/assets/css/colorpicker.css"/>
 
 <!-- ajax layout which only needs content area -->
-<div class="page-header">
+<div class="page-header" xmlns:th="http://www.thymeleaf.org">
     <h1>
         LED
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            编辑
+            <span th:text="${product != null ? '修改' : '新增'}"></span>
         </small>
     </h1>
 </div><!-- /.page-header -->
@@ -158,6 +158,7 @@
                         <input type="number" required="required" id="form-field-8" placeholder="价格(单位:元)" name="price"
                                title="请输入价格"
                                class="width-100"
+                               step="any"
                                th:value="${product != null ? product.price : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
