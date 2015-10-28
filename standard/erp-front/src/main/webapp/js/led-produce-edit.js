@@ -19,7 +19,7 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             if (response.success) {
                 bootbox.dialog({
                     closeButton: false,
-                    message: "<h5 class='bigger-110'>" + response.msg + "</h5>",
+                    message: "<h3 class='bigger-110'>" + response.msg + "</h3>",
                     buttons: {
                         "proceed": {
                             "label": "<i class='ace-icon fa fa-check'></i> 继续添加",
