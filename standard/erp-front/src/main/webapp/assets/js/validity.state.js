@@ -17,7 +17,6 @@ $(function ($) {
 
     function oninvalid(obj, valid) {
         var divGroup = $(obj).closest('.form-group');
-        console.info(divGroup);
         if (valid) {
             divGroup.removeClass('has-error');
             $(obj).next('i').removeClass('fa-times-circle');

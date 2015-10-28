@@ -24,8 +24,7 @@
 <div class="row" xmlns:th="http://www.thymeleaf.org">
     <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
-        <form class="form-horizontal" role="form" action="/led/save" method="post">
-            <input type="hidden" th:if="${product != null}"  th:value="${product != null ? product.id : ''}" name="id"/>
+        <form class="form-horizontal" role="form" action="/led/save" method="post" th:if="${#lists.size(products)} > 0">
             <!-- 单号 begins -->
             <div class="form-group">
                 <label for="form-field-1" class="col-xs-12 col-sm-3 control-label no-padding-right">单号<b
@@ -109,15 +108,14 @@
 
             <!-- 型号 begins -->
             <div class="form-group">
-                <label for="form-field-6" class="col-xs-12 col-sm-3 control-label no-padding-right">型号<b
+                <label for="form-field-6" class="col-xs-12 col-sm-3 control-label no-padding-right">型号-色温-亮度<b
                         class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-6" placeholder="型号"
-                               title="请输入型号"
-                               class="width-100"
-                                />
+                        <select class="chosen-select form-control width-100" id="form-field-6" data-placeholder="请选择led型号" required="required" >
+                            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.typ} + ' ' + ${product.colourTemperature}+ ' ' + ${product.bri}" th:attr="price=${product.price}"></option>
+                        </select>
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
                 </div>
@@ -125,7 +123,7 @@
             <!-- 型号 ends -->
 
             <!-- 色温 begins -->
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="form-field-7" class="col-xs-12 col-sm-3 control-label no-padding-right">色温<b
                         class="text-danger">&nbsp;*</b></label>
 
@@ -138,11 +136,11 @@
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
                 </div>
-            </div>
+            </div>-->
             <!-- 色温 ends -->
 
-            <!-- 色温 begins -->
-            <div class="form-group">
+            <!-- 亮度 begins -->
+            <!--<div class="form-group">
                 <label for="form-field-8" class="col-xs-12 col-sm-3 control-label no-padding-right">亮度<b
                         class="text-danger">&nbsp;*</b></label>
 
@@ -155,18 +153,19 @@
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
                 </div>
-            </div>
-            <!-- 色温 ends -->
+            </div>-->
+            <!-- 亮度 ends -->
 
             <!-- 进货单价 begins -->
             <div class="form-group">
-                <label for="form-field-9" class="col-xs-12 col-sm-3 control-label no-padding-right">进货单价</label>
+                <label for="form-field-9" class="col-xs-12 col-sm-3 control-label no-padding-right">进货单价(单位：元)</label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-9" placeholder="进货单价"
+                        <input type="number" step="any" required="required" id="form-field-9" placeholder="进货单价"
                                title="请输入进货单价"
                                class="width-100"
+                               name="price"
                                readonly="readonly"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
@@ -185,6 +184,7 @@
                         <input type="number" required="required" id="form-field-10" placeholder="数量"
                                title="请输入数量"
                                class="width-100"
+                               name="number"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
@@ -194,7 +194,7 @@
 
             <!-- 拿货总款 begins -->
             <div class="form-group">
-                <label for="form-field-11" class="col-xs-12 col-sm-3 control-label no-padding-right">拿货总款</label>
+                <label for="form-field-11" class="col-xs-12 col-sm-3 control-label no-padding-right">拿货总款(单位：元)</label>
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -211,7 +211,7 @@
 
             <!-- 出售价格 begins -->
             <div class="form-group">
-                <label for="form-field-12" class="col-xs-12 col-sm-3 control-label no-padding-right">出售价格<b
+                <label for="form-field-12" class="col-xs-12 col-sm-3 control-label no-padding-right">出售价格(单位：元)<b
                         class="text-danger">&nbsp;*</b></label>
 
                 <div class="col-xs-12 col-sm-5">
@@ -219,6 +219,7 @@
                         <input type="number" required="required" id="form-field-12" placeholder="出售价格" step="any"
                                title="请输入出售价格"
                                class="width-100"
+                               name="sale"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
@@ -228,7 +229,7 @@
 
             <!-- 总货款 begins -->
             <div class="form-group">
-                <label for="form-field-12" class="col-xs-12 col-sm-3 control-label no-padding-right">总货款</label>
+                <label for="form-field-12" class="col-xs-12 col-sm-3 control-label no-padding-right">总货款(单位：元)</label>
 
                 <div class="col-xs-13 col-sm-5">
                     <span class="block input-icon input-icon-right">
@@ -286,6 +287,20 @@
             <!-- 提交，重置按钮 ends-->
 
         </form>
+        <div th:if="${#lists.size(products)} == 0">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-times"></i>
+                    Oh snap!
+                </strong>
+                没有LED产品可选择，请<a href="#led/publish" data-url="led/publish">返回LED产品页面添加</a>
+                <br />
+            </div>
+        </div>
         <!-- PAGE CONTENT ENDS -->
     </div>
     <!-- /.col -->

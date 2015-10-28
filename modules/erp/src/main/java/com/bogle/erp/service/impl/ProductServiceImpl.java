@@ -41,4 +41,9 @@ public class ProductServiceImpl implements ProductService {
     public Product selectByPrimaryKey(Long id) {
         return this.productRepository.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<Product> find(Product query) {
+        return this.productRepository.find(query);
+    }
 }

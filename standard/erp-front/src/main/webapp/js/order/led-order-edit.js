@@ -1,7 +1,7 @@
 var scripts = [null,
     "/assets/js/jquery-ui.custom.js",
     "/assets/js/jquery.ui.touch-punch.js",
-    "/assets/js/chosen.jquery.js",
+
     '/assets/js/bootbox.js',
     "/assets/js/date-time/bootstrap-datepicker.js",
     {url: "/assets/js/validity.state.js", cache: false},
@@ -52,4 +52,37 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
             }
         }
     })
+
+    if(!ace.vars['touch']) {
+        $('select.chosen-select').chosen({allow_single_deselect:true,no_results_text:'无可匹配的结果'})
+            .trigger("chosen:updated.chosen")
+            .ready(function() {
+                $('div.form-group input[name="price"]').val($('select.chosen-select option').first().attr('price'));
+            })
+            .change(function(event,option) {
+            var id = option.selected;
+            var selected =$('select.chosen-select option[value="' + id + '"]');
+            $('div.form-group input[name="price"]').val(selected.attr('price'));
+        });
+    }
+
+    $('.form-group input[name="number"]').on('keyup', function () {
+        calculate();
+    });
+
+    function calculate() {
+        var number = parseInt($('.form-group input[name="number"]').val());
+        var sale = parseFloat($('div.form-group input[name="sale"]').val());
+        var price = parseFloat($('div.form-group input[name="price"]').val());
+        if(isNaN(number)) {
+            number = 0;
+        }
+        if(isNaN(sale)) {
+            sale = 0;
+        }
+        if(isNaN(price)) {
+            price = 0;
+        }
+
+    }
 });

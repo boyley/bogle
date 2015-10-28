@@ -24,6 +24,7 @@ public interface ProductService {
 
     /**
      * 带移除的对象的id
+     *
      * @param products
      * @return
      */
@@ -31,8 +32,16 @@ public interface ProductService {
 
     /**
      * 根据id查询对象
+     *
      * @param id
      * @return
      */
     Product selectByPrimaryKey(Long id);
+
+    /**
+     * 获取所有的数据
+     *
+     * @return
+     */
+    List<Product> find(Product product);
 }
