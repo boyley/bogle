@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="/assets/css/colorpicker.css"/>
 
 <!-- ajax layout which only needs content area -->
-<div class="page-header">
+<div class="page-header" xmlns:th="http://www.thymeleaf.org">
     <h1>
         LED
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            编辑
+            <span th:text="${product != null ? '修改' : '新增'}"></span>
         </small>
     </h1>
 </div><!-- /.page-header -->
@@ -215,6 +215,7 @@
                                name="price"
                                title="价格格式为整数或小数"
                                class="width-100"
+                               step="any"
                                th:value="${product != null ? product.price : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
@@ -243,7 +244,7 @@
                     <a class="btn btn-primary" data-url="page/admin/led/led-produce-list.html"
                        href="#page/admin/led/led-produce-list.html">
                         <i class="ace-icon fa fa-reply bigger-110"></i>
-                        返回
+                        返回LED列表页面
                     </a>
                 </div>
             </div>
@@ -256,4 +257,4 @@
     <!-- /.col -->
 </div><!-- /.row -->
 <!-- page specific plugin scripts -->
-<script type="text/javascript" src="/js/led-produce-edit.js"></script>
+<script type="text/javascript" src="/js/led/led-produce-edit.js"></script>

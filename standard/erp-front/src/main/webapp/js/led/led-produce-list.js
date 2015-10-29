@@ -1,12 +1,12 @@
 var scripts = [
     null,
-    "../../assets/js/jquery-ui.custom.js",
-    "../../assets/js/jquery.ui.touch-punch.js",
-    "../../assets/js/bootbox.js",
-    "../../assets/js/spin.js",
-    "../../assets/js/jsrender.js",
-    "../../assets/js/jquery.serializeObject.js",
-    "../../assets/js/jquery.pagination-1.2.7.js",
+    "/assets/js/jquery-ui.custom.js",
+    "/assets/js/jquery.ui.touch-punch.js",
+    "/assets/js/bootbox.js",
+    "/assets/js/spin.js",
+    "/assets/js/jsrender.js",
+    "/assets/js/jquery.serializeObject.js",
+    "/assets/js/jquery.pagination-1.2.7.js",
     null]
 $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
     //inline scripts related to this page

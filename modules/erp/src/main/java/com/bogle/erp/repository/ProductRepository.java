@@ -15,6 +15,15 @@ public interface ProductRepository extends MyBatisRepository<Product, Long> {
     Product selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeysSelective(List<Product> products);
+
+    /**
+     * 查询制定条件的所有数据
+     * @param query
+     * @return
+     */
+    List<Product> find(Product query);
+
+
 //
 //    int updateByPrimaryKey(Product record);
 }
