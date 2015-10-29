@@ -10,6 +10,11 @@ $(function ($) {
         oninvalid(this, validityState.valid);
     });
 
+    $('form.form-horizontal').on('change','input', function () {
+        var validityState = this.validity;
+        oninvalid(this, validityState.valid);
+    });
+
     function oninvalid(obj, valid) {
         var divGroup = $(obj).closest('.form-group');
         if (valid) {

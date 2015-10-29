@@ -66,7 +66,11 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
         });
     }
 
-    $('.form-group input[name="number"]').on('keyup', function () {
+    $('.calculate').on('keyup', function () {
+        calculate();
+    });
+
+    $('.calculate').on('change', function () {
         calculate();
     });
 
