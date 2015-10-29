@@ -36,10 +36,10 @@ public class LedProduceController {
         return page;
     }
 
-    @RequestMapping(value = "/save", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
+    @RequestMapping(value = "/publish", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST)
     public
     @ResponseBody
-    Object add(@Valid Product product, BindingResult result) {
+    Object publish(@Valid Product product, BindingResult result) {
         log.info("save.................");
         if (result.hasErrors()) {
             return new Api<>(false, 501, result.getAllErrors());
@@ -60,7 +60,7 @@ public class LedProduceController {
         return api;
     }
 
-    @RequestMapping(value = "/edit")
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView edit(Long id) {
         ModelAndView modelAndView = new ModelAndView("admin/led/led-produce-edit");
         Product product = this.productService.selectByPrimaryKey(id);
@@ -69,7 +69,7 @@ public class LedProduceController {
     }
 
 
-    @RequestMapping(value = "/publish")
+    @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public ModelAndView publish() {
         ModelAndView modelAndView = new ModelAndView("admin/led/led-produce-edit");
         return modelAndView;

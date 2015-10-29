@@ -86,7 +86,7 @@
                     <span class="block input-icon input-icon-right">
                         <input type="text"
                                id="form-field-3"
-                               placeholder="联系电话"
+                               placeholder="请输入联系电话"
                                title="请输入联系电话"
                                name="phone"
                                class="width-100"
@@ -94,6 +94,9 @@
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    请输入联系电话
                 </div>
             </div>
             <!-- 联系电话 ends -->
@@ -106,7 +109,7 @@
                     <span class="block input-icon input-icon-right">
                         <input type="email"
                                id="form-field-4"
-                               placeholder="Email"
+                               placeholder="请输入Email"
                                title="Email格式必须包含@符号"
                                name="email"
                                class="width-100"
@@ -215,7 +218,6 @@
                                name="price"
                                title="价格格式为整数或小数"
                                class="width-100"
-                               step="any"
                                th:value="${product != null ? product.price : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
