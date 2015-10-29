@@ -19,6 +19,7 @@ $(function ($) {
                 divGroup.addClass('has-success');
                 $(obj).next().addClass('fa-check-circle');
                 $(obj).next().removeClass('hide');
+                divGroup.find('div.help-block').addClass('hide');
             }
         } else {
             divGroup.removeClass('has-success');
@@ -27,8 +28,11 @@ $(function ($) {
                 divGroup.addClass('has-error');
                 $(obj).next().addClass('fa-times-circle');
                 $(obj).next().removeClass('hide');
+                divGroup.find('div.help-block').show();
             }
         }
     }
+
+    $.fn.aceInvalid = oninvalid;
 });
 
