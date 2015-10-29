@@ -42,6 +42,14 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function () {
                         }
                     }
                 });
+            } else if(!response.success && response.code == 501) {
+                // 字段不合法
+                var errors = response.data;
+                for (var i = 0; i < errors.length; i++) {
+                    var error = errors[i];
+                    var obj = $('input[name="' + error.field + '"]');
+                    $.fn.aceInvalid(obj, false);
+                }
             }
         }
     })

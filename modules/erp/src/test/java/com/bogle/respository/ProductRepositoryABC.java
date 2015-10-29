@@ -12,28 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by 赵波 on 2015/10/26.
  */
-@SpringApplicationConfiguration(classes = SampleApplication.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class ProductRepositoryTest {
+//@SpringApplicationConfiguration(classes = SampleApplication.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@Transactional
+public class ProductRepositoryABC {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductRepositoryTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductRepositoryABC.class);
 
     @Autowired
     private ProductRepository productRepository;
 
-    @Test
+//    @Test
     public void testFindPage() {
         Product product = new Product();
 //        product.setProducer("producer-2");

@@ -33,13 +33,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-1" placeholder="生产商" name="producer"
-                               title="请输入生产商"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,50}"
+                               id="form-field-1"
+                               placeholder="请输入生产商"
+                               name="producer"
+                               title="生产商字符的长度在2~50之间"
                                class="width-100"
                                 th:value="${product != null ? product.producer : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    生产商字符的长度在2~50之间
                 </div>
             </div>
             <!-- 生产商 ends -->
@@ -51,13 +59,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-2" placeholder="联系人" name="contact"
-                               title="请输入联系人"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,30}"
+                               id="form-field-2"
+                               placeholder="请输入联系人"
+                               name="contact"
+                               title="联系人字符长度在2~30之间"
                                class="width-100"
                                th:value="${product != null ? product.contact : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    联系人字符的长度在2~50之间
                 </div>
             </div>
             <!-- 联系人 ends -->
@@ -68,7 +84,11 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-3" placeholder="联系电话" title="请输入联系电话" name="phone"
+                        <input type="text"
+                               id="form-field-3"
+                               placeholder="联系电话"
+                               title="请输入联系电话"
+                               name="phone"
                                class="width-100"
                                th:value="${product != null ? product.phone : ''}"
                                 />
@@ -84,12 +104,19 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="email" id="form-field-4" placeholder="Email" title="请输入Email" name="email"
+                        <input type="email"
+                               id="form-field-4"
+                               placeholder="Email"
+                               title="Email格式必须包含@符号"
+                               name="email"
                                class="width-100"
                                th:value="${product != null ? product.email : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    Email格式必须包含@符号
                 </div>
             </div>
             <!-- 联系Email ends -->
@@ -101,13 +128,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-5" placeholder="型号" name="typ"
-                               title="请输入型号"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,30}"
+                               id="form-field-5"
+                               placeholder="请输入型号"
+                               name="typ"
+                               title="LED型号字符的长度在2~30之间"
                                class="width-100"
                                th:value="${product != null ? product.typ : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    LED型号字符的长度在2~30之间
                 </div>
             </div>
             <!-- 型号 ends -->
@@ -119,13 +154,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-6" placeholder="色温"
-                               name="colourTemperature" title="请输入色温"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,30}"
+                               id="form-field-6"
+                               placeholder="请输入LED色温"
+                               name="colourTemperature"
+                               title="LED色温字符的长度在2~30之间"
                                class="width-100"
                                th:value="${product != null ? product.colourTemperature : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    LED色温字符的长度在2~30之间
                 </div>
             </div>
             <!-- 色温 ends -->
@@ -137,13 +180,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-7" placeholder="亮度" name="bri"
-                               title="请输入亮度"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,30}"
+                               id="form-field-7"
+                               placeholder="请输入亮度"
+                               name="bri"
+                               title="LED亮度字符的长度在2~30之间"
                                class="width-100"
                                th:value="${product != null ? product.bri : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    LED亮度字符的长度在2~30之间
                 </div>
             </div>
             <!-- 亮度 ends -->
@@ -155,13 +206,22 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="number" required="required" id="form-field-8" placeholder="价格(单位:元)" name="price"
-                               title="请输入价格"
+                        <input type="number"
+                               required="required"
+                               pattern="[0-9]+([.]{1}[0-9]+){0,1}"
+                               step="any"
+                               id="form-field-8"
+                               placeholder="请输入价格(单位:元)"
+                               name="price"
+                               title="价格格式为整数或小数"
                                class="width-100"
                                th:value="${product != null ? product.price : ''}"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    价格格式为整数或小数
                 </div>
             </div>
             <!-- 价格 ends -->

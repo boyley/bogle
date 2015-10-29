@@ -3,17 +3,22 @@ package com.bogle.erp.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.Persistable;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 public class Product implements Persistable<Long> {
     private Long id;
 
+    @Pattern(regexp = ".{2,50}", message = "生产商字符的长度在2~50之间")
     private String producer;
 
+    @Pattern(regexp = ".{2,30}", message = "联系人字符的长度在2~50之间")
     private String contact;
 
     private String phone;
 
+    @Pattern(regexp = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", message = "邮箱格式必须包含@符号")
     private String email;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -21,10 +26,13 @@ public class Product implements Persistable<Long> {
 
     private Timestamp updateTime;
 
+    @Pattern(regexp = ".{2,30}", message = "LED型号字符的长度在2~30之间")
     private String typ;
 
+    @Pattern(regexp = ".{2,30}", message = "LED色温字符的长度在2~30之间")
     private String colourTemperature;
 
+    @Pattern(regexp = ".{2,30}", message = "LED亮度字符的长度在2~30之间")
     private String bri;
 
     private Double price;
