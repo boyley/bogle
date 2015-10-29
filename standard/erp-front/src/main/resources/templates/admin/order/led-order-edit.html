@@ -32,12 +32,20 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-1" placeholder="单号"
-                               title="请输入单号"
+                        <input type="text"
+                               required="required"
+                               pattern=".{6,30}"
+                               maxlength="30"
+                               id="form-field-1"
+                               placeholder="请输入单号"
+                               title="单号字符的长度在6~30之间"
                                class="width-100"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    单号字符的长度在6~30之间(不能作为唯一判断)
                 </div>
             </div>
             <!-- 单号 ends -->
@@ -49,12 +57,20 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" required="required" id="form-field-2" placeholder="客户名"
-                               title="请输入客户名"
+                        <input type="text"
+                               required="required"
+                               pattern=".{2,30}"
+                               maxlength="30"
+                               id="form-field-2"
+                               placeholder="请输入客户名"
+                               title="客户名字符的长度在2~30之间"
                                class="width-100"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    客户名字符的长度在2~30之间
                 </div>
             </div>
             <!-- 客户名 ends -->
@@ -64,12 +80,20 @@
                 <label for="form-field-3" class="col-xs-12 col-sm-3 control-label no-padding-right">日期</label>
                 <div class="col-xs-12 col-sm-5">
                     <div class="input-group">
-                        <input class="form-control date-picker" id="form-field-3" type="text" required="required" placeholder="年 / 月/日" data-date-format="yyyy-mm-dd" />
+                        <input class="form-control date-picker"
+                               id="form-field-3"
+                               type="text"
+                               required="required"
+                               placeholder="年 / 月/日"
+                               data-date-format="yyyy-mm-dd" />
                         <span class="input-group-addon">
                             <!--<i class="ace-icon fa fa-check-circle"></i>-->
                             <i class="fa fa-calendar bigger-110"></i>
                         </span>
                     </div>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    日期格式为“年 / 月/日”
                 </div>
             </div>
             <!-- 日期 ends -->
@@ -80,7 +104,8 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="text" id="form-field-4" placeholder="联系电话"
+                        <input type="text" id="form-field-4"
+                               placeholder="联系电话"
                                title="请输入联系电话"
                                class="width-100"
                                 />
@@ -96,12 +121,17 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="email" id="form-field-5" placeholder="Email"
-                               title="请输入Email"
+                        <input type="email"
+                               id="form-field-5"
+                               placeholder="请输入客户Email"
+                               title="Email格式必须包含@符号"
                                class="width-100"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    Email格式必须包含@符号
                 </div>
             </div>
             <!-- Email ends -->
@@ -181,13 +211,20 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="number" required="required" id="form-field-10" placeholder="数量"
-                               title="请输入数量"
+                        <input type="number"
+                               required="required"
+                               pattern="\d+"
+                               id="form-field-10"
+                               placeholder="请输入销售数量"
+                               title="销售数量格式为正整数"
                                class="width-100 calculate"
                                name="number"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    销售数量格式为正整数
                 </div>
             </div>
             <!-- 数量 ends -->
@@ -217,13 +254,21 @@
 
                 <div class="col-xs-12 col-sm-5">
                     <span class="block input-icon input-icon-right">
-                        <input type="number" required="required" id="form-field-12" placeholder="出售价格" step="any"
-                               title="请输入出售价格"
+                        <input type="number"
+                               required="required"
+                               pattern="[1-9]\d*\.\d*|0\.\d*[1-9]\d*"
+                               id="form-field-12"
+                               placeholder="请输入出售价格"
+                               step="any"
+                               title="出售价格格式为整数或小数"
                                class="width-100 calculate"
                                name="sale"
                                 />
                         <i class="ace-icon fa fa-times-circle hide"></i>
                     </span>
+                </div>
+                <div class="help-block col-xs-12 col-sm-reset inline">
+                    出售价格格式为整数或小数
                 </div>
             </div>
             <!-- 出售价格 ends -->

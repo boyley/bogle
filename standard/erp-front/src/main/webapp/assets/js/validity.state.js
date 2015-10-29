@@ -19,20 +19,20 @@ $(function ($) {
         var divGroup = $(obj).closest('.form-group');
         if (valid) {
             divGroup.removeClass('has-error');
-            $(obj).next().removeClass('fa-times-circle');
+            $(obj).next('i').removeClass('fa-times-circle');
             if (!divGroup.hasClass('has-success')) {
                 divGroup.addClass('has-success');
-                $(obj).next().addClass('fa-check-circle');
-                $(obj).next().removeClass('hide');
+                $(obj).next('i').addClass('fa-check-circle');
+                $(obj).next('i').removeClass('hide');
                 divGroup.find('div.help-block').addClass('hide');
             }
         } else {
             divGroup.removeClass('has-success');
-            $(obj).next().removeClass('fa-check-circle');
+            $(obj).next('i').removeClass('fa-check-circle');
             if (!divGroup.hasClass('has-error')) {
                 divGroup.addClass('has-error');
-                $(obj).next().addClass('fa-times-circle');
-                $(obj).next().removeClass('hide');
+                $(obj).next('i').addClass('fa-times-circle');
+                $(obj).next('i').removeClass('hide');
                 divGroup.find('div.help-block').show();
             }
         }
